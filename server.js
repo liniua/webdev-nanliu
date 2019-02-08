@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Point static path to dist -- For building -- REMOVE
-app.use(express.static(path.join(__dirname, 'dist/my-project')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // CORS
 app.use(function(req, res, next) {
@@ -20,13 +20,13 @@ app.use(function(req, res, next) {
   next();
 });
 
-const port = process.env.PORT || '3200';
+const port = process.env.PORT || '8080';
 app.set('port', port);
 
 
 // Create HTTP server
 const server = http.createServer(app);
-server.listen( port , () => console.log('Running on port 3200'));
+server.listen( port , () => console.log('Running on port 8080'));
 
 /*var dbServer = require('./test-mongodb/app');
 dbServer(app);*/
@@ -36,10 +36,9 @@ dbServer(app);*/
 
 // For Build: Catch all other routes and return the index file -- BUILDING
 
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
-});
-
+//app.get('*', function (req, res) {
+//  res.sendFile(path.join(__dirname, 'dist/index.html'));
+//});
 
 
 //require('./assignment/app')(app);

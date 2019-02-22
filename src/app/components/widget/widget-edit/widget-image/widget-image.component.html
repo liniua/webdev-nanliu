@@ -2,16 +2,16 @@
   <div class="container-fluid row">
 
     <div class="navbar-text float-left">
-      <a href="widget-list.html" class="cl-text-black cl-icon-padding">
+      <a [routerLink]="['../']" class="cl-text-black cl-icon-padding">
         <i class="fas fa-chevron-left fontawsome_icon"></i>
       </a>
-      <a class="navbar-brand cl-text-black cl-text-bold" href="#">
+      <a class="navbar-brand cl-text-black cl-text-bold" [routerLink]="['./']">
         Widgets Edit
       </a>
     </div>
 
     <div class="navbar-text float-right">
-      <a href="widget-list.html" class="cl-icon-padding cl-text-black">
+      <a [routerLink]="['../']" class="cl-icon-padding cl-text-black" (click) = "update()">
         <i class="fas fa-check fontawsome_icon"></i>
       </a>
     </div>
@@ -20,35 +20,54 @@
 </nav>
 
 <div class="container">
-  <form>
-    <div class="form-group">
-      <label for="image-name">Name</label>
-      <input type="text" class="form-control" id="image-name" placeholder="Name">
-    </div>
+  <form (ngSubmit) = "update()" #f="ngForm">
     <div class="form-group">
       <label for="image-text">Text</label>
-      <input type="text" class="form-control" id="image-text" placeholder="Text">
+      <input type="text" class="form-control" id="image-text" placeholder={{widget.text}}
+             ngModel required
+             name="text" #text="ngModel"/>
+      <div [hidden]="text.valid || text.untouched"
+           class="alert alert-danger">
+        Text is required
+      </div>
     </div>
     <div class="form-group">
       <label for="image-URL">URL</label>
-      <input type="text" class="form-control" id="image-URL" placeholder="URL">
+      <input type="text" class="form-control" id="image-URL" placeholder={{widget.url}}
+             ngModel required
+             name="url" #url="ngModel"/>
     </div>
     <div class="form-group">
       <label for="image-width">Width</label>
-      <input type="text" class="form-control" id="image-width" placeholder="100%">
+      <input type="text" class="form-control" id="image-width" placeholder={{widget.width}}
+             ngModel required
+             name="width" #width="ngModel"/>
     </div>
+    <!--<div class="form-group">-->
+      <!--<label for="exampleInputFile">Upload</label>-->
+      <!--<input type="file" class="form-control" id="exampleInputFile"-->
+             <!--ngModel required-->
+             <!--name="file" #file="ngModel"/>-->
+    <!--</div>-->
     <div class="form-group">
       <label for="exampleInputFile">Upload</label>
-      <input type="file" class="form-control" id="exampleInputFile">
+      <form ngNoForm (click)="upload()" method="post" enctype="multipart/form-data">
+        <input  name="myFile"   type="file" class="form-control"  id="exampleInputFile"/>
+        <input  name="widgetId" value="{{wgid}}"   style="display: none"/>
+        <input  name="websiteId" value="{{websiteId}}"   style="display: none"/>
+        <input  name="pageId" value="{{pageID}}"   style="display: none"/>
+        <input  name="userId" value="{{userId}}"   style="display: none"/>
+        <button type="submit" class="btn btn-block btn-primary" [routerLink]="['./']">Upload Image</button>
+      </form>
     </div>
   </form>
-  <a class="btn btn-primary btn-block" href="#">Upload Image</a>
-  <a class="btn btn-danger  btn-block" href="widget-list.html">Delete</a>
+  <!--<a class="btn btn-primary btn-block" href="#">Upload Image</a>-->
+  <a class="btn btn-danger  btn-block" [routerLink]="['../']" (click) = "delete()">Delete</a>
 </div>
 
 <nav class="navbar bg-light fixed-bottom w-100 justify-content-end">
   <div class="container-fuild">
-    <a href="profile.html" class="navbar-link navbar-text cl-text-blue cl-icon-padding">
+    <a [routerLink]="['../../../../../../']" class="navbar-link navbar-text cl-text-blue cl-icon-padding">
       <i class="fas fa-user fontawsome_icon"></i>
     </a>
   </div>

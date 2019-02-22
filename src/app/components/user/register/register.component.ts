@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../services/user.service.client';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {User} from '../../../models/user.model.client';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
     this.vpassword = this.registerForm.value.vpassword;
 
     if (this.password === this.vpassword) {
-      const user = this.userService.createUser({_id: '', username: this.username, password: this.password, firstName: '', lastName: ''});
+      const user = this.userService.createUser(new User( '', this.username, this.password, '', '', ''));
       if (user) {
         this.router.navigate(['/user', user._id]);
       }

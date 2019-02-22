@@ -1,3 +1,8 @@
+<div *ngIf="errorFlag"
+     class="alert alert-danger">
+  {{errorMsg}}
+</div>
+<form (ngSubmit) = "updateUser()" #f="ngForm">
 <nav class="navbar navbar-expand-sm cl-blue-navbar navbar-dark fixed-top">
 
   <div class="container-fluid">
@@ -13,45 +18,61 @@
 </nav>
 
 <div class="container">
-
   <h1></h1>
-  <form>
+
     <div class="form-group">
       <label for="username">Username</label>
-      <input [(ngModel)]="username" [ngModelOptions]="{standalone: true}"
+      <input [(ngModel)]="username"
+             name="username"
              type="text"
              class="form-control"
              id="username"
-             placeholder="Username">
+             placeholder={{user.username}}>
+      <!--<span class="help-block" *ngIf="!username.valid && username.touched">-->
+        <!--Please enter username!-->
+      <!--</span>-->
     </div>
     <div class="form-group">
       <label for="email">Email address</label>
-      <input [(ngModel)]="email" [ngModelOptions]="{standalone: true}"
+      <input [(ngModel)]="email"
+             name="email"
              type="email"
              class="form-control"
              id="email"
-             placeholder="alice@wonderland.com">
+             placeholder={{user.email}}>
+      <!--<span class="help-block" *ngIf="!email.valid && email.touched">-->
+        <!--Please enter email!-->
+      <!--</span>-->
     </div>
     <div class="form-group">
       <label for="first-name">First Name</label>
-      <input [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}"
+      <input [(ngModel)]="firstName"
+             name="firstName"
              type="text"
              class="form-control"
              id="first-name"
-             placeholder="Alice">
+             placeholder={{user.firstName}}>
+      <!--<span class="help-block" *ngIf="!firstName.valid && firstName.touched">-->
+        <!--Please enter first name!-->
+      <!--</span>-->
     </div>
     <div class="form-group">
       <label for="last-name">Last Name</label>
-      <input [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}"
+      <input [(ngModel)]="lastName"
+             name="lastName"
              type="text"
              class="form-control"
              id="last-name"
-             placeholder="Wonderland">
+             placeholder={{user.lastName}}>
+      <!--<span class="help-block" *ngIf="!lastName.valid && lastName.touched">-->
+        <!--Please enter last name!-->
+      <!--</span>-->
     </div>
-  </form>
-  <a class="btn btn-primary btn-block" [routerLink]="['/user', 'website']">Websites</a>
-  <a class="btn btn-danger  btn-block" (click) = "logout()">Logout</a>
+    <a class="btn btn-primary btn-block" [routerLink]="['/user', userId, 'website']">Websites</a>
+    <a class="btn btn-danger btn-block" (click) = "logout()">Logout</a>
+
 </div>
+
 <nav class="navbar navbar-expand-sm cl-blue-navbar navbar-dark fixed-bottom w-100 justify-content-end">
   <div class="container-fuild">
     <a [routerLink]="['/user', userId]" class="navbar-link navbar-text cl-text-white cl-icon-padding">
@@ -59,3 +80,4 @@
     </a>
   </div>
 </nav>
+</form>

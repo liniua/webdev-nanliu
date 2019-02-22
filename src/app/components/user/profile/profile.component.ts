@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../services/user.service.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Route, Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
+import {User} from '../../../models/user.model.client';
 
 @Component({
   selector: 'app-profile',
@@ -9,8 +11,10 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
+  @ViewChild('f') profileForm: NgForm;
+
   userId: string;
-  user = {};
+  user: User;
   username: string;
   email: string;
   firstName: string;
@@ -18,43 +22,44 @@ export class ProfileComponent implements OnInit {
   errorFlag: boolean;
   errorMsg = 'Invalid username or password !';
 
-  constructor(private userService: UserService, private activatedRoute: ActivatedRoute) { }
+  constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
     this.activatedRoute.params
       .subscribe(
         (params: any) => {
-          this.user = params['user'];
-          this.userId = params['userId'];
-          this.username = params['username'];
-          this.firstName = params['firstName'];
-          this.lastName = params['lastName'];
-          this.email = params['email'];
+          this.userId = params['uid'];
         }
       );
 
-    // this.user = this.userService.findUserById(this.userId);
+    console.log(this.userId);
+
+    this.user = this.userService.findUserById(this.userId);
 
   }
 
   logout() {
-  //   this.userService.logout()
-  //     .subscribe(
-  //       (data: any) => this.activatedRoute.navigate(['/login'])
-  //     );
+    this.router.navigate(['/login']);
   }
   //
   updateUser() {
-  //   this.activatedRoute.params.subscribe(params => {
-  //
-  //     this.user = params['user'];
-  //     this.userId = params['userId'];
-  //   });
-  //
-  //   this.userService.updateUser(this.userId, this.user);
-  //   console.log(this.user);
-  //   console.log(this.userId);
-  //   console.log(this.userService.users);
+    this.activatedRoute.params.subscribe(params => {
+      this.userId = params['uid'];
+    });
+    this.username = this.profileForm.value.username;
+    this.email = this.profileForm.value.email;
+    this.firstName = this.profileForm.value.firstName;
+    this.lastName = this.profileForm.value.lastName;
+    const user = {_id: this.userId,
+      username: this.username,
+      password: '',
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email};
+    this.userService.updateUser(this.userId, user);
+    console.log(user);
+    console.log(this.userId);
+    console.log(this.userService.users);
   }
 }

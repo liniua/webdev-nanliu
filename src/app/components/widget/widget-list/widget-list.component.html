@@ -42,36 +42,41 @@
       </div>
 
       <div *ngSwitchCase="'YOUTUBE'" class="youtube-widget">
-        <iframe width="560" height="315" [src]="widget.url | safe" frameborder="0" allowfullscreen ></iframe>
-        <a [routerLink]="['./']" class="pull-right">
-          <i class="fa fa-bars fontawsome_icon"></i>
-        </a>
-        <a [routerLink]="['./', widget._id]" class="pull-right">
-          <i class="fas fa-cog fontawsome_icon"></i>
-        </a>
-
+        <div>
+          <iframe width="560" height="315" [src]="widget.url | safe" frameborder="0" allowfullscreen="" ></iframe>
+        </div>
+        <div class="float-right">
+          <a [routerLink]="['./']" class="pull-right">
+            <i class="fa fa-bars fontawsome_icon"></i>
+          </a>
+          <a [routerLink]="['./', widget._id]" class="pull-right">
+            <i class="fas fa-cog fontawsome_icon"></i>
+          </a>
+        </div>
       </div>
 
       <div *ngSwitchCase="'IMAGE'">
-        <a [routerLink]="['./']" class="pull-right">
-          <img class="img-responsive img-rounded cl-widget-images"
-               [src]=widget.url>
-          <i class="fa fa-bars fontawsome_icon"></i>
-        </a>
-        <a [routerLink]="['./', widget._id]" class="pull-right">
-          <i class="fas fa-cog fontawsome_icon"></i>
-        </a>
+        <img class="img-responsive img-rounded cl-widget-images" [src]=widget.url>
+        <div class="float-right">
+          <a [routerLink]="['./']" class="pull-right">
+            <i class="fa fa-bars fontawsome_icon"></i>
+          </a>
+          <a [routerLink]="['./', widget._id]" class="pull-right">
+            <i class="fas fa-cog fontawsome_icon"></i>
+          </a>
+        </div>
       </div>
 
       <div *ngSwitchCase="'HTML'">
         <div [innerHTML]="widget.text"></div>
-        <a [routerLink]="['./']" class="float-right">
-          <i class="fa fa-bars fontawsome_icon"></i>
-        </a>
-        <a [routerLink]="['./', widget._id]" class="float-right">
-          <i class="fas fa-cog fontawsome_icon"></i>
-        </a>
-
+        <div class="float-right">
+          <a [routerLink]="['./']" class="pull-right">
+            <i class="fa fa-bars fontawsome_icon"></i>
+          </a>
+          <a [routerLink]="['./', widget._id]" class="pull-right">
+            <i class="fas fa-cog fontawsome_icon"></i>
+          </a>
+        </div>
       </div>
     </div>
   </div>

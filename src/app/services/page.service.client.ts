@@ -1,31 +1,26 @@
 import {Injectable} from '@angular/core';
+import {Page} from '../models/page.model.client';
 
 
 @Injectable()
 export class PageService {
 
   pages = [
-    { _id: '321', name: 'Post 1', websiteId: '456', description: 'Lorem'},
-    { _id: '432', name: 'Post 2', websiteId: '456', description: 'Lorem'},
-    { _id: '543', name: 'Post 2-1', websiteId: '567', description: 'Lorem'},
-    { _id: '911', name: 'Post 2-2', websiteId: '567', description: 'Lorem'},
-    { _id: '687', name: 'Post 3-1', websiteId: '890', description: 'Lorem'},
-    { _id: '329', name: 'Post 3-1', websiteId: '890', description: 'Lorem'}
+    new Page('321', 'Post 1', '456', 'Lorem'),
+    new Page('432', 'Post 2', '456', 'Lorem'),
+    new Page( '543', 'Post 2-1', '567', 'Lorem'),
+    new Page('911', 'Post 2-2', '567', 'Lorem'),
+    new Page('687', 'Post 3-1', '890', 'Lorem'),
+    new Page('329', 'Post 3-1', '890', 'Lorem')
   ];
 
-  createPage(websiteId: string, page: any) {
+  createPage(websiteId: String, page: Page) {
 
-    const new_page = {
-      _id: (new Date()).getTime() + '',
-      name: page.name,
-      websiteId: page.websiteId,
-      description: page.description
-    };
-
+    const new_page = new Page((new Date()).getTime() + '', page.name, page.websiteId, page.title);
     this.pages.push(new_page);
   }
 
-  findPageByWebsiteId(websiteId: string) {
+  findPageByWebsiteId(websiteId: String) {
     const resultSet = [];
     for ( const i in this.pages) {
       if (this.pages[i].websiteId === websiteId) {
@@ -35,22 +30,22 @@ export class PageService {
     return resultSet;
   }
 
-  findPageById(pageId: string) {
+  findPageById(pageId: String) {
     return this.pages.find(function (page) {
       return page._id === pageId;
     });
   }
 
-  updatePage(pageId: String, page: any) {
+  updatePage(pageId: String, page: Page) {
     for (const i in this.pages) {
       if (this.pages[i]._id === pageId) {
         this.pages[i].name = page.name;
-        this.pages[i].description = page.description;
+        this.pages[i].title = page.title;
       }
     }
   }
 
-  deletePage(pageId: string) {
+  deletePage(pageId: String) {
     for (const i in this.pages) {
       if (this.pages[i]._id === pageId) {
         const j = +i;

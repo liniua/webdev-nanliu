@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {PageService} from '../../../services/page.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Page} from '../../../models/page.model.client';
 
 @Component({
   selector: 'app-page-edit',
@@ -11,16 +12,16 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class PageEditComponent implements OnInit {
 
   @ViewChild('f') pageForm: NgForm;
-  pageID: string;
-  pageName: string;
-  pageTitle: string;
+  pageID: String;
+  pageName: String;
+  pageTitle: String;
 
   constructor(private pageService: PageService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   updatePage() {
     this.pageName = this.pageForm.value.pageName;
     this.pageTitle = this.pageForm.value.title;
-    const new_page = {_id: this.pageID, name: this.pageName, websiteId: undefined, description: this.pageTitle};
+    const new_page = new Page(this.pageID, this.pageName, undefined, this.pageTitle);
     this.pageService.updatePage(this.pageID, new_page);
     console.log(this.pageService.pages);
   }

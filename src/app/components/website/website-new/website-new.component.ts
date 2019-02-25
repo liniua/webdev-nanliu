@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WebsiteService} from '../../../services/website.service.client';
+import {Website} from '../../../models/website.model.client';
 
 @Component({
   selector: 'app-website-new',
@@ -11,10 +12,10 @@ import {WebsiteService} from '../../../services/website.service.client';
 export class WebsiteNewComponent implements OnInit {
 
   @ViewChild('f') webForm: NgForm;
-  userId: string;
-  websites = [];
-  webname: string;
-  description: string;
+  userId: String;
+  websites: Website[];
+  webname: String;
+  description: String;
 
   constructor(private websiteService: WebsiteService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
@@ -32,7 +33,7 @@ export class WebsiteNewComponent implements OnInit {
     });
     this.webname = this.webForm.value.webname;
     this.description = this.webForm.value.description;
-    const new_website = {_id: undefined, name: this.webname, developerId: this.userId, description: this.description};
+    const new_website = new Website(undefined, this.webname, this.userId, this.description);
 
     console.log('new website: ' + new_website);
 

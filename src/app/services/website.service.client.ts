@@ -1,33 +1,29 @@
 import {Injectable} from '@angular/core';
+import {Website} from '../models/website.model.client';
 
 
 @Injectable()
 export class WebsiteService {
 
   websites = [
-    {_id: '123', name: 'Facebook', developerId: '456', description: 'Lorem'},
-    {_id: '234', name: 'Tweeter', developerId: '456', description: 'Lorem'},
-    {_id: '456', name: 'Gizmodo', developerId: '456', description: 'Lorem'},
-    {_id: '890', name: 'Go', developerId: '123', description: 'Lorem'},
-    {_id: '567', name: 'Tic Tac Toe', developerId: '123', description: 'Lorem'},
-    {_id: '678', name: 'Checkers', developerId: '123', description: 'Lorem'},
-    {_id: '789', name: 'Chess', developerId: '234', description: 'Lorem'}
+    new Website('123', 'Facebook', '456', 'Lorem'),
+    new Website('234', 'Tweeter', '456', 'Lorem'),
+    new Website('456', 'Gizmodo', '456', 'Lorem'),
+    new Website('890', 'Go', '123', 'Lorem'),
+    new Website('567', 'Tic Tac Toe', '123', 'Lorem'),
+    new Website('678', 'Checkers', '123', 'Lorem'),
+    new Website('789', 'Chess', '234', 'Lorem')
 
   ];
 
-  createWebsite(userId: string, website: any) {
+  createWebsite(userId: String, website: Website) {
 
-    const new_website = {
-      _id: (new Date()).getTime() + '',
-      name: website.name,
-      developerId: userId,
-      description: website.description
-    };
+    const new_website = new Website((new Date()).getTime() + '', website.name, userId, website.description);
 
     this.websites.push(new_website);
   }
 
-  findWebsitesByUser(userId: string) {
+  findWebsitesByUser(userId: String) {
     const resultSet = [];
     for (const i in this.websites) {
       if (this.websites[i].developerId === userId) {
@@ -37,13 +33,13 @@ export class WebsiteService {
     return resultSet;
   }
 
-  findWebsitesById(websiteId: string) {
+  findWebsitesById(websiteId: String) {
     return this.websites.find(function (website) {
       return website._id === websiteId;
     });
   }
 
-  updateWebsite(websiteId: string, website: any) {
+  updateWebsite(websiteId: String, website: Website) {
     for (const i in this.websites) {
       if (this.websites[i]._id === websiteId) {
         this.websites[i].name = website.name;
@@ -53,7 +49,7 @@ export class WebsiteService {
     }
   }
 
-  deleteWebsite(websiteId: string) {
+  deleteWebsite(websiteId: String) {
     for (const i in this.websites) {
       if (this.websites[i]._id === websiteId) {
         const j = +i;

@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {WebsiteService} from '../../../services/website.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Website} from '../../../models/website.model.client';
 
 @Component({
   selector: 'app-website-edit',
@@ -11,11 +12,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class WebsiteEditComponent implements OnInit {
 
   @ViewChild('f') websiteForm: NgForm;
-  wid: string;
-  websiteName: string;
-  description: string;
-  userId: string;
-  websites = [];
+  wid: String;
+  websiteName: String;
+  description: String;
+  userId: String;
+  websites: Website[];
   constructor(private websiteService: WebsiteService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {

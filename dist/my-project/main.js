@@ -793,7 +793,7 @@ var RegisterComponent = /** @class */ (function () {
             this.error = 'Passwords do not match!';
         }
         // console.log(this.userService.users);
-        // call user service only if passwords match else show the same error
+        // call user services only if passwords match else show the same error
         // if (this.password === this.vpassword) {
         //   this.userService.createUser()
         //     .subscribe(
@@ -1812,7 +1812,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// injecting service into module
+// injecting services into module
 var UserService = /** @class */ (function () {
     function UserService() {
         this.users = [

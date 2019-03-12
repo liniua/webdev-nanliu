@@ -5,7 +5,8 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import {User} from '../models/user.model.client';
 
-// injecting service into module
+
+// injecting services into module
 
 @Injectable()
 export class UserService {
@@ -72,5 +73,4 @@ export class UserService {
       }
     }
   }
-
 }

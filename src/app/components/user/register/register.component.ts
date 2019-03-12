@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
     }
     // console.log(this.userService.users);
 
-    // call user service only if passwords match else show the same error
+    // call user services only if passwords match else show the same error
     // if (this.password === this.vpassword) {
     //   this.userService.createUser()
     //     .subscribe(

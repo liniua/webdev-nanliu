@@ -66,7 +66,8 @@ module.exports=function(app) {
     var page = req.body;
     for (var i = 0; i < pages.length; i++) {
       if (pages[i]._id === pageId) {
-        pages[i] = page;
+        pages[i].name = page.name;
+        pages[i].title = page.title;
       }
     }
     res.json(pages);
@@ -76,9 +77,9 @@ module.exports=function(app) {
     var pageId = req.params["pageId"];
     for (var i = 0; i < pages.length; i++) {
       if (pages[i]._id === pageId) {
-        pages.slice(i, 1);
+        pages.splice(i, 1);
       }
     }
     res.json(pages);
   }
-}
+};

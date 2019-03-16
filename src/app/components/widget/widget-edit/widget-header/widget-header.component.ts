@@ -12,31 +12,49 @@ import {WidgetService} from '../../../../services/widget.service.client';
 export class WidgetHeaderComponent implements OnInit {
 
   @ViewChild('f') headerForm: NgForm;
+  websiteId: String;
   wgid: String;
   pageID: String;
+  userId: String;
   widget: Widget;
   constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private route: Router) { }
 
   delete() {
-    this.widgetService.deleteWidget(this.wgid);
+    this.widgetService.deleteWidget(this.wgid)
+      .subscribe(
+        (data: any) => this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageID, 'widget']),
+        (error: any) => console.log(error)
+      );
   }
 
   update() {
-    this.widget.text = this.headerForm.value.text;
-    this.widget.size = this.headerForm.value.size;
-    this.widgetService.updateWidget(this.wgid, this.widget);
+    // this.widget.text = this.headerForm.value.text;
+    // this.widget.size = this.headerForm.value.size;
+    // this.widgetService.updateWidget(this.wgid, this.widget);
+
+    this.widgetService.updateWidget(this.wgid, this.widget)
+      .subscribe(
+        (data: any) => this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageID, 'widget']),
+        (error: any) => console.log(error)
+      );
   }
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       (params: any) => {
+        this.userId = params['uid'];
+        this.websiteId = params['wid'];
         this.pageID = params['pid'];
         this.wgid = params['wgid'];
+        console.log(this.userId);
+        console.log(this.websiteId);
+        console.log(this.pageID);
+        console.log(this.wgid);
       });
-    if (this.wgid === undefined) {
-      this.widget = new Widget(undefined, 'HEADER', this.pageID, '', '', '', '');
-    } else {
-      this.widget = this.widgetService.findWidgetById(this.wgid);
-    }
+    this.widgetService.findWidgetById(this.wgid)
+      .subscribe(
+        (data: any) => this.widget = data,
+        (error: any) => console.log(error)
+      );
   }
 
 }

@@ -2,7 +2,7 @@
      class="alert alert-danger">
   {{errorMsg}}
 </div>
-<form (ngSubmit) = "updateUser()" #f="ngForm">
+
 <nav class="navbar navbar-expand-sm cl-blue-navbar navbar-dark fixed-top">
 
   <div class="container-fluid">
@@ -10,8 +10,9 @@
   </div>
 
   <div class="container-fluid w-100 justify-content-end" >
-    <a class="navbar-link navbar-text cl-text-white cl-icon-padding" (click)="updateUser()">
-      <i class="fas fa-check fontawsome_icon"></i>
+    <a class="navbar-link navbar-text cl-text-white cl-icon-padding">
+      <i class="fas fa-check fontawsome_icon" (click)="f.ngSubmit.emit()"></i>
+      <!--<button class="glyphicon glyphicon-ok"  [hidden]="!f.valid" [disabled]="!f.valid"></button>-->
     </a>
   </div>
 
@@ -19,7 +20,7 @@
 
 <div class="container">
   <h1></h1>
-
+  <ng-form (ngSubmit) = "updateUser()" #f="ngForm">
     <div class="form-group">
       <label for="username">Username</label>
       <input [(ngModel)]="username"
@@ -69,8 +70,8 @@
       <!--</span>-->
     </div>
     <a class="btn btn-primary btn-block" [routerLink]="['/user', userId, 'website']">Websites</a>
-    <a class="btn btn-danger btn-block" (click) = "logout()">Logout</a>
-
+    <a class="btn btn-danger btn-block" [routerLink]="['/login']">Logout</a>
+  </ng-form>
 </div>
 
 <nav class="navbar navbar-expand-sm cl-blue-navbar navbar-dark fixed-bottom w-100 justify-content-end">
@@ -80,4 +81,4 @@
     </a>
   </div>
 </nav>
-</form>
+

@@ -21,9 +21,9 @@ export class PageNewComponent implements OnInit {
     this.pageName = this.pageForm.value.pageName;
     this.pageTitle = this.pageForm.value.title;
     const new_page = new Page(undefined, this.pageName, this.websiteID, this.pageTitle);
-    this.pageService.createPage(this.websiteID, new_page);
-    console.log(new_page);
-    console.log(this.pageService.pages);
+    this.pageService.createPage(this.websiteID, new_page).subscribe(
+      () => this.router.navigate(['../'], {relativeTo: this.activeRoute})
+    );
   }
   ngOnInit() {
     this.activeRoute.params.subscribe(

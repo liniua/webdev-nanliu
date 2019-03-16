@@ -21,6 +21,7 @@
 
 <div class="container cl-container-padding">
   <div *ngFor="let widget of widgets">
+
     <div [ngSwitch]="widget.widgetType">
       <div *ngSwitchCase="'HEADING'">
         <div class="float-right">

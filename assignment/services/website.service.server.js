@@ -29,11 +29,12 @@ module.exports=function(app) {
   function createWebsite(req, res){
     var userId = req.params['userId'];
     var website = req.body;
-    website._id = (new Date()).getTime() + "";
+    website._id = Math.random().toString();
     website.developerId = userId;
     websites.push(website);
-    var websites_temp = getWebsitesForUserId(userId);
-    res.json(websites_temp);
+    console.log('create new website: ' + website);
+    res.json(website);
+
   }
 
   function getWebsitesForUserId(userId) {
@@ -58,10 +59,11 @@ module.exports=function(app) {
     var websiteId = req.params['websiteId'];
     var website = null;
     for(var i = 0; i < websites.length; i++) {
-      if (websites[i]._id === websiteId) {
+      if (websites[i]._id === websiteId && websites[i].developerId === userId) {
         website = websites[i];
       }
     }
+    console.log('find a website: ');
     res.json(website);
   }
 
@@ -71,7 +73,9 @@ module.exports=function(app) {
     var newWebSite = req.body;
     for(var i = 0; i < websites.length; i++) {
       if (websites[i]._id === websiteId) {
-        websites[i] = newWebSite;
+        websites[i].name = newWebSite.name;
+        websites[i].developerId = newWebSite.developerId;
+        websites[i].description = newWebSite.description;
         break;
       }
     }
@@ -85,9 +89,10 @@ module.exports=function(app) {
       if (websites[i]._id === websiteId) {
         websites.splice(i, 1);
         var websites_temp = getWebsitesForUserId(userId);
+        console.log('Delete success');
         res.json(websites_temp);
         return;
       }
     }
   }
-}
+};

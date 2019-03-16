@@ -19,13 +19,13 @@ module.exports=function(app) {
   app.delete("/api/widget/:widgetId", deleteWidget);
 
   var widgets = [
-    {_id: '123', type: 'HEADER', pageId: '321',size:  '2', text:'GOP Releases Formerly Classified Memo Critical Of FBI' },
-    {_id: '234', type: 'HEADER', pageId: '321',size: '4', text: 'It hints at a new GOP target: deputy attorney general' },
-    {_id: '345', type: 'IMAGE', pageId: '321',size:  '2',text: 'text', width:'100%',
+    {_id: '123', widgetType: 'HEADING', pageId: '321',size:  '2', text:'GOP Releases Formerly Classified Memo Critical Of FBI' },
+    {_id: '234', widgetType: 'HEADING', pageId: '321',size: '4', text: 'It hints at a new GOP target: deputy attorney general' },
+    {_id: '345', widgetType: 'IMAGE', pageId: '321',size:  '2',text: 'text', width:'100%',
       url: 'https://media.fox5dc.com/media.fox5dc.com/photo/2018/02/01/trump_classified_1517500733623_4880181_ver1.0_640_360.jpg'},
-    {_id: '456', type: 'HTML', pageId: '321',size: '2', text: '<p>blalbla</p>' },
-    {_id: '567', type: 'HEADER', pageId: '321', size: '4', text: 'Memo asserts bias on part of FBI investigation in Russia probe'},
-    {_id: '678', type: 'YOUTUBE', pageId: '321', size: '2',text:  'text', width: '100%', url: 'https://www.youtube.com/embed/I84wnvEqGXc'},
+    {_id: '456', widgetType: 'HTML', pageId: '321',size: '2', text: '<p>blalbla</p>' },
+    {_id: '567', widgetType: 'HEADING', pageId: '321', size: '4', text: 'Memo asserts bias on part of FBI investigation in Russia probe'},
+    {_id: '678', widgetType: 'YOUTUBE', pageId: '321', size: '2',text:  'text', width: '100%', url: 'https://www.youtube.com/embed/I84wnvEqGXc'},
   ];
 
   function createWidget(req, res) {
@@ -34,6 +34,7 @@ module.exports=function(app) {
     widget._id = (new Date()).getTime() + "";
     widget.pageId = pageId;
     widgets.push(widget);
+    console.log('add new widget' + widget);
     res.json(widget);
   }
 
@@ -54,6 +55,7 @@ module.exports=function(app) {
     for (var i = 0; i < widgets.length; i++) {
       if (widgets[i]._id === widgetId) {
         found_widget = widgets[i];
+        console.log(found_widget);
       }
     }
     if (found_widget) {
@@ -82,10 +84,10 @@ module.exports=function(app) {
     var widgetId = req.params['widgetId'];
     for (var i = 0; i < widgets.length; i++) {
       if (widgets[i]._id === widgetId) {
-        widgets.slice(i, 1);
+        widgets.splice(i, 1);
       }
     }
     res.json(widgets);
   }
 
-}
+};

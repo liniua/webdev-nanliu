@@ -37,18 +37,24 @@ export class WidgetImageComponent implements OnInit {
   }
 
   update() {
-    this.text = this.imageForm.value.text;
-    this.url = this.imageForm.value.url;
-    this.width = this.imageForm.value.width;
+    // this.text = this.imageForm.value.text;
+    // this.url = this.imageForm.value.url;
+    // this.width = this.imageForm.value.width;
+    //
+    // console.log(this.text);
+    //
+    // const new_widget = new Widget(undefined, 'IMAGE', this.pageID,
+    //   '1', this.text.toString(), this.width.toString(), this.url.toString());
+    // console.log(new_widget);
 
-    console.log(this.text);
+    // this.widgetService.updateWidget(this.wgid, new_widget);
+    // console.log(this.widgetService.widgets);
 
-    const new_widget = new Widget(undefined, 'IMAGE', this.pageID,
-      '1', this.text.toString(), this.width.toString(), this.url.toString());
-    console.log(new_widget);
-
-    this.widgetService.updateWidget(this.wgid, new_widget);
-    console.log(this.widgetService.widgets);
+    this.widgetService.updateWidget(this.wgid, this.widget)
+      .subscribe(
+        (data: any) => this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageID, 'widget']),
+        (error: any) => console.log(error)
+      );
   }
 
   delete() {
@@ -63,7 +69,11 @@ export class WidgetImageComponent implements OnInit {
         this.pageID = params['pid'];
         this.wgid = params['wgid'];
       });
-    this.widget = this.widgetService.findWidgetById(this.wgid);
+    this.widgetService.findWidgetById(this.wgid)
+      .subscribe(
+        (data: any) => this.widget = data,
+        (error: any) => console.log(error)
+      );
   }
 
 }

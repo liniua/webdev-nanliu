@@ -13,9 +13,10 @@ export class WebsiteEditComponent implements OnInit {
 
   @ViewChild('f') websiteForm: NgForm;
   wid: String;
-  websiteName: String;
-  description: String;
+  // websiteName: String;
+  // description: String;
   userId: String;
+  website: Website;
   websites: Website[];
   constructor(private websiteService: WebsiteService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
@@ -27,7 +28,18 @@ export class WebsiteEditComponent implements OnInit {
         this.userId = params['uid'];
         console.log(this.userId);
       });
-    this.websites = this.websiteService.findWebsitesByUser(this.userId);
+    this.websiteService.findWebsitesByUser(this.userId).subscribe(
+      (websites: Website[]) => {
+        this.websites = websites;
+      });
+    console.log(this.websites);
+    this.websiteService.findWebsitesById(this.userId, this.wid).subscribe(
+      (website: Website) => {
+        console.log(website);
+        this.website = website;
+      }
+    );
+    console.log(this.website);
   }
 
   updateWebsite() {
@@ -35,15 +47,18 @@ export class WebsiteEditComponent implements OnInit {
       alert('Please input new web name');
       return;
     }
-    this.websiteName = this.websiteForm.value.websiteName;
-    this.description = this.websiteForm.value.description;
-    const new_website = {_id: this.wid, name: this.websiteName, developerId: this.userId, description: this.description};
-    this.websiteService.updateWebsite(this.wid, new_website);
+    this.website.name = this.websiteForm.value.websiteName;
+    this.website.description = this.websiteForm.value.description;
+    this.websiteService.updateWebsite(this.userId, this.wid, this.website).subscribe(
+      (website: Website) => {
+        this.website = website;
+      }
+    );
   }
   deleteWeb() {
     console.log(this.wid);
-    this.websiteService.deleteWebsite(this.wid);
-    console.log(this.websiteService.websites);
+    this.websiteService.deleteWebsite(this.userId, this.wid).subscribe(
+      () => this.router.navigate(['../'], {relativeTo: this.activatedRoute}));
   }
 
 }

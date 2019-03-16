@@ -17,12 +17,14 @@ export class WidgetChooserComponent implements OnInit {
   widget: Widget;
   url: any;
 
-  // defaultWidgetValues =
-  //   {
-  //     'Heading': {type: 'Heading', 'size' : 1},
-  //     'Image': {type: 'Image', width: '100%'},
-  //     'YouTube': {type: 'YouTube', width: '100%'}
-  //   };
+  defaultWidgetValues =
+    {
+      'HEADING': {_id: '', widgetType: 'HEADING', pageId: '', size: '1', text: ''},
+      'IMAGE': {widgetType: 'IMAGE', width: '100%'},
+      'YOUTUBE': {widgetType: 'YOUTUBE', width: '100%'},
+      'HTML': {widgetType: 'HTML'},
+      'TEXT': {widgetType: 'TEXT', placeholder: ''}
+    };
 
   constructor(private widgetService: WidgetService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -42,22 +44,32 @@ export class WidgetChooserComponent implements OnInit {
   }
 
   // creating a widget with default values
-  createWidget(widgetType: String) {
+  createWidget(widgetType) {
 
-    const new_widget = new Widget('', widgetType, this.pageId, '1', 'text', '100%', '');
-      // if (widgetType === 'HEADING') {
-    //   this.widget = new Widget(undefined, 'HEADING', this.pageId, '1', '', '', '');
-    // } else if (widgetType === 'IMAGE') {
-    //   this.widget = new Widget(undefined, 'IMAGE', this.pageId, '', '', '100%', '');
-    // } else if (widgetType === 'YOUTUBE') {
-    //   this.widget = new Widget(undefined, 'YOUTUBE', this.pageId, '', '', '100%', '');
-    // }
-
-    // this.widget = this.defaultWidgetValues[widgetType];
-    this.widgetService.createWidget(this.pageId, new_widget);
-    console.log(new_widget);
-    this.url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget/' + new_widget._id;
-    console.log(new_widget._id);
-    this.router.navigate([this.url]);
+    this.widget = this.defaultWidgetValues[widgetType];
+    this.widgetService.createWidget(this.pageId, this.widget)
+      .subscribe(
+        (data: Widget) => {
+          this.widgetId = data._id;
+          console.log('data.widgetType in res' + data.widgetType);
+          this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', this.widgetId]);
+        },
+        (error: any) => console.log(error)
+      );
+    // const new_widget = new Widget('', widgetType, this.pageId, '1', 'text', '100%', '');
+    //   // if (widgetType === 'HEADING') {
+    // //   this.widget = new Widget(undefined, 'HEADING', this.pageId, '1', '', '', '');
+    // // } else if (widgetType === 'IMAGE') {
+    // //   this.widget = new Widget(undefined, 'IMAGE', this.pageId, '', '', '100%', '');
+    // // } else if (widgetType === 'YOUTUBE') {
+    // //   this.widget = new Widget(undefined, 'YOUTUBE', this.pageId, '', '', '100%', '');
+    // // }
+    //
+    // // this.widget = this.defaultWidgetValues[widgetType];
+    // this.widgetService.createWidget(this.pageId, new_widget);
+    // console.log(new_widget);
+    // this.url = '/user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget/' + new_widget._id;
+    // console.log(new_widget._id);
+    // this.router.navigate([this.url]);
   }
 }

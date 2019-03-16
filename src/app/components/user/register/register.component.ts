@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   username: string;
   password: string;
   vpassword: string;
+  user: User;
   error: string;
 
   constructor(private userService: UserService, private router: Router) { }
@@ -30,31 +31,21 @@ export class RegisterComponent implements OnInit {
     this.vpassword = this.registerForm.value.vpassword;
 
     if (this.password === this.vpassword) {
-      const user = this.userService.createUser(new User( '', this.username, this.password, '', '', ''));
-      if (user) {
-        this.router.navigate(['/user', user._id]);
-      }
+      this.userService.createUser(this.username, this.password)
+        .subscribe(
+          (user: User) => {
+            this.router.navigate(['/user', user._id ]);
+          },
+          (error: any) => {
+                  console.log(error);
+                  this.error = error._body;
+                }
+        );
+      console.log('Add new user: ' + this.user.username);
     } else {
 
-      this.error = 'Passwords do not match!';
-    }
-    // console.log(this.userService.users);
-
-    // call user services only if passwords match else show the same error
-    // if (this.password === this.vpassword) {
-    //   this.userService.createUser()
-    //     .subscribe(
-    //       (data: any) => {
-    //         this.router.navigate(['/profile']);
-    //       },
-    //       (error: any) => {
-    //         console.log(error);
-    //         this.error = error._body;
-    //       }
-    //     );
-    // } else {
-    //   this.error = 'Passwords do not match!';
-    // }
+        this.error = 'Passwords do not match!';
+      }
   }
 
 }

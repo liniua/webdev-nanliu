@@ -13,53 +13,67 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('f') profileForm: NgForm;
 
-  userId: string;
+  userId: String;
   user: User;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
+  username: String;
+  email: String;
+  firstName: String;
+  lastName: String;
   errorFlag: boolean;
   errorMsg = 'Invalid username or password !';
 
-  constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private userService: UserService, private activatedRouter: ActivatedRoute) { }
 
   ngOnInit() {
-
-    this.activatedRoute.params
-      .subscribe(
-        (params: any) => {
-          this.userId = params['uid'];
+    this.activatedRouter.params.subscribe(params => {
+      return this.userService.findUserById(params['uid']).subscribe(
+        (user: User) => {
+          console.log('This is: ' + user.username);
+          this.userId = user._id;
+          this.user = user;
+          this.username = this.user.username;
         }
       );
-
-    console.log(this.userId);
-
-    this.user = this.userService.findUserById(this.userId);
-
+    });
   }
 
-  logout() {
-    this.router.navigate(['/login']);
-  }
-  //
   updateUser() {
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRouter.params.subscribe(params => {
       this.userId = params['uid'];
     });
+    console.log('new info: ' + this.profileForm.value);
     this.username = this.profileForm.value.username;
     this.email = this.profileForm.value.email;
     this.firstName = this.profileForm.value.firstName;
     this.lastName = this.profileForm.value.lastName;
+
     const user = {_id: this.userId,
       username: this.username,
       password: '',
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email};
-    this.userService.updateUser(this.userId, user);
-    console.log(user);
-    console.log(this.userId);
-    console.log(this.userService.users);
+
+    console.log('new user: ' + user._id);
+    console.log(user.username);
+    console.log(user.email);
+    console.log(user.firstName);
+    console.log(user.lastName);
+    this.userService.updateUser(user).subscribe(
+        (new_user: any) => {
+          this.user = new_user;
+        }
+      );
+    // console.log(user);
+    // console.log(this.userId);
+    // console.log(this.userService.users);
+
+    // this.activatedRouter.params.subscribe(params => {
+    //   return this.userService.updateUser(user).subscribe(
+    //     (new_user: any) => {
+    //       this.user = new_user;
+    //     }
+    //   );
+    // });
   }
 }

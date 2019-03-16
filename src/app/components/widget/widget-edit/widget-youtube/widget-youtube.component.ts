@@ -26,11 +26,18 @@ export class WidgetYoutubeComponent implements OnInit {
     this.widget.text = this.youtubeForm.value.text;
     this.widget.width = this.youtubeForm.value.width;
 
-    this.widgetService.updateWidget(this.wgid, this.widget);
+    this.widgetService.updateWidget(this.wgid, this.widget).subscribe(
+      (widget: Widget) => {
+        this.widget = widget;
+        this.route.navigate(['../'], {relativeTo: this.activatedRoute});
+      }
+    );
   }
 
   delete () {
-    this.widgetService.deleteWidget(this.wgid);
+    this.widgetService.deleteWidget(this.wgid).subscribe(
+      () => this.route.navigate(['../'], {relativeTo: this.activatedRoute})
+    );
   }
   ngOnInit() {
     this.activatedRoute.params.subscribe(
@@ -42,8 +49,14 @@ export class WidgetYoutubeComponent implements OnInit {
       }
     );
 
-    this.widget = this.widgetService.findWidgetById(this.wgid);
-    console.log(this.widget);
+    if (this.wgid === undefined) {
+      this.widget = new Widget(undefined, 'YOUTUBE', this.pageID, '', '', '', '');
+    } else {
+      this.widgetService.findWidgetById(this.wgid).subscribe(
+        (widget: Widget) => {
+          this.widget = widget;
+        });
+    }
   }
 
 }

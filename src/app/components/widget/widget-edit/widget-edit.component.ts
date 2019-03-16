@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WidgetService} from '../../../services/widget.service.client';
+import {Widget} from '../../../models/widget.model.client';
 
 @Component({
   selector: 'app-widget-edit',
@@ -10,7 +11,8 @@ import {WidgetService} from '../../../services/widget.service.client';
 export class WidgetEditComponent implements OnInit {
 
   wgid: string;
-  widget: {};
+  widget: Widget;
+  // header = 'HEADING'; youtube = 'YOUTUBE'; text = 'TEXT'; html = 'HTML'; image = 'IMAGE';
   constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService) { }
 
   ngOnInit() {
@@ -19,7 +21,12 @@ export class WidgetEditComponent implements OnInit {
       this.wgid = params['wgid'];
     });
 
-    this.widget = this.widgetService.findWidgetById(this.wgid);
+    this.widgetService.findWidgetById(this.wgid)
+      .subscribe(
+        (data: Widget) => {
+          this.widget = data;
+        }
+      );
   }
 
 }

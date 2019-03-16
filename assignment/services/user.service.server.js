@@ -4,8 +4,7 @@ module.exports=function(app) {
   app.post("/api/user", createUsers);
 
   //GET calls
-  app.get("/api/user?username=username", findUserByUsername);
-  app.get("/api/user?username=username&password=password", findUserByCredentials);
+  app.get("/api/user", findUsers);
   app.get("/api/user/:userId", findUserById);
 
   //Put calls
@@ -14,17 +13,11 @@ module.exports=function(app) {
   //delete calls
   app.delete("/api/user/:userId", deleteUser);
 
-  // app.get('/api/hello/user', helloworld);
-  // function helloworld(req, res) {
-  //   console.log("Get hello api call!");
-  //   res.send("Hello world! User");
-  // }
-
   var users = [
-    {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonderland"  },
-    {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley"  },
-    {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia"  },
-    {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
+    {_id: "123", username: "alice",    password: "aa",    firstName: "Alice",  lastName: "Wonderland"  },
+    {_id: "234", username: "bob",      password: "bb",      firstName: "Bob",    lastName: "Marley"  },
+    {_id: "345", username: "charly",   password: "cc",   firstName: "Charly", lastName: "Garcia"  },
+    {_id: "456", username: "jannunzi", password: "jj", firstName: "Jose",   lastName: "Annunzi" }
   ];
 
   function createUsers(req, res) {
@@ -35,36 +28,54 @@ module.exports=function(app) {
     console.log("Create User");
   }
 
-  function findUserByUsername(req, res) {
-
-    var username = req.query["username"];
-    console.log(username);
-    var user = null;
-
-    if (username){
-      user = users.find(function (user) {
-        return user.username === username;
-      });
-    }
-    res.json(user);
-    console.log(user);
-  }
-
-  function findUserByCredentials(req, res) {
-
+  function findUsers(req, res) {
     var username = req.query["username"];
     var password = req.query["password"];
-
     var user = null;
 
     if (username && password){
       user = users.find(function (user) {
         return user.username === username && user.password === password;
       });
+    } else if (username) {
+      user = users.find(function (user) {
+        return user.username === username;
+      });
     }
-    console.log("find User");
+    console.log("find User: " + user.username);
     res.json(user);
   }
+
+  // function findUserByUsername(req, res) {
+  //
+  //   var username = req.query["username"];
+  //   console.log(username);
+  //   var user = null;
+  //
+  //   if (username){
+  //     user = users.find(function (user) {
+  //       return user.username === username;
+  //     });
+  //   }
+  //   res.json(user);
+  //   console.log("billabong");
+  //   console.log(user);
+  // }
+  //
+  // function findUserByCredentials(req, res) {
+  //
+  //   var username = req.query["username"];
+  //   var password = req.query["password"];
+  //   var user = null;
+  //
+  //   if (username && password){
+  //     user = users.find(function (user) {
+  //       return user.username === username && user.password === password;
+  //     });
+  //   }
+  //   console.log("find User");
+  //   res.json(user);
+  // }
 
   function findUserById(req, res) {
 
@@ -76,6 +87,8 @@ module.exports=function(app) {
         return user._id === userId;
       });
     }
+    console.log("id user");
+    console.log(user);
     res.json(user);
   }
 
@@ -113,4 +126,4 @@ module.exports=function(app) {
     res.json(user);
   }
 
-}
+};

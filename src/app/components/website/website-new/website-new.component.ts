@@ -23,7 +23,10 @@ export class WebsiteNewComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.userId = params['uid'];
     });
-    this.websites = this.websiteService.findWebsitesByUser(this.userId);
+    this.websiteService.findWebsitesByUser(this.userId).subscribe(
+      (websites: Website[]) => {
+        this.websites = websites;
+      });
   }
 
   createWeb() {
@@ -35,10 +38,13 @@ export class WebsiteNewComponent implements OnInit {
     this.description = this.webForm.value.description;
     const new_website = new Website(undefined, this.webname, this.userId, this.description);
 
-    console.log('new website: ' + new_website);
-
-    this.websiteService.createWebsite(this.userId, new_website);
-
-    console.log(this.websiteService.websites);
+    console.log('new website: ');
+    console.log(new_website.name);
+    console.log(new_website.developerId);
+    this.websiteService.createWebsite(this.userId, new_website).subscribe(
+      (website: Website) => {
+        this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+      }
+    );
   }
 }

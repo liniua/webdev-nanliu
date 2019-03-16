@@ -27,7 +27,8 @@ app.set('port', port);
 
 // Create HTTP services
 const server = http.createServer(app);
-//server.listen( port , () => console.log('Running on port 8080'));
+require('./assignment/app')(app);
+server.listen( port , () => console.log('Running on port 8080'));
 
 /*var dbServer = require('./test-mongodb/app');
 dbServer(app);*/
@@ -49,5 +50,5 @@ dbServer(app);*/
 
 // include a file ./assignment/app
 
-require('./assignment/app')(app);
-app.listen(port, () => console.log('Running on port 8080'));
+
+//app.listen(port, () => console.log('Running on port 8080'));

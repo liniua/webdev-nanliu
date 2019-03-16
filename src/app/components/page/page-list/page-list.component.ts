@@ -20,9 +20,13 @@ export class PageListComponent implements OnInit {
       (params: any) => {
         console.log(params['wid']);
         this.websiteID = params['wid'];
+        this.pageService.findPageByWebsiteId(this.websiteID).subscribe(
+          (pages: Page[]) => {
+            this.pages = pages;
+          }
+        );
+        console.log(this.pages);
       });
-
-    this.pages = this.pageService.findPageByWebsiteId(this.websiteID);
   }
 
 }

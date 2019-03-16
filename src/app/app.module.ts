@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { Routing } from './app.routing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/user/login/login.component';
@@ -51,7 +52,8 @@ import { SafePipe } from './safe.pipe';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    Routing
+    Routing,
+    HttpClientModule
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],
   bootstrap: [AppComponent]

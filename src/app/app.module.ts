@@ -25,7 +25,9 @@ import {UserService} from './services/user.service.client';
 import {WebsiteService} from './services/website.service.client';
 import {PageService} from './services/page.service.client';
 import {WidgetService} from './services/widget.service.client';
-import { SafePipe } from './safe.pipe';
+import {SortableDirective} from './components/widget/widget-list/sortable.directive';
+import {OrderByPipe} from './components/widget/widget-list/order-by-pipe.pipe';
+import {SafePipe} from './safe.pipe';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { SafePipe } from './safe.pipe';
     WidgetHeaderComponent,
     WidgetImageComponent,
     WidgetYoutubeComponent,
-    SafePipe
+    SafePipe,
+    SortableDirective,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,

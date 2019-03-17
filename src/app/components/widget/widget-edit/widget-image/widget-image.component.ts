@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {Widget} from '../../../../models/widget.model.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WidgetService} from '../../../../services/widget.service.client';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-widget-image',
@@ -21,6 +22,7 @@ export class WidgetImageComponent implements OnInit {
   text: String;
   url: String;
   widget: Widget;
+  baseUrl: String;
 
   constructor(private activatedRoute: ActivatedRoute,
               private widgetService: WidgetService,
@@ -37,19 +39,6 @@ export class WidgetImageComponent implements OnInit {
   }
 
   update() {
-    // this.text = this.imageForm.value.text;
-    // this.url = this.imageForm.value.url;
-    // this.width = this.imageForm.value.width;
-    //
-    // console.log(this.text);
-    //
-    // const new_widget = new Widget(undefined, 'IMAGE', this.pageID,
-    //   '1', this.text.toString(), this.width.toString(), this.url.toString());
-    // console.log(new_widget);
-
-    // this.widgetService.updateWidget(this.wgid, new_widget);
-    // console.log(this.widgetService.widgets);
-
     this.widgetService.updateWidget(this.wgid, this.widget)
       .subscribe(
         (data: any) => this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageID, 'widget']),
@@ -62,6 +51,7 @@ export class WidgetImageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.baseUrl = environment.baseUrl;
     this.activatedRoute.params.subscribe(
       (params: any) => {
         this.userId = params['uid'];

@@ -184,7 +184,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_website_service_client__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./services/website.service.client */ "./src/app/services/website.service.client.ts");
 /* harmony import */ var _services_page_service_client__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./services/page.service.client */ "./src/app/services/page.service.client.ts");
 /* harmony import */ var _services_widget_service_client__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./services/widget.service.client */ "./src/app/services/widget.service.client.ts");
-/* harmony import */ var _safe_pipe__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./safe.pipe */ "./src/app/safe.pipe.ts");
+/* harmony import */ var _components_widget_widget_list_sortable_directive__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/widget/widget-list/sortable.directive */ "./src/app/components/widget/widget-list/sortable.directive.ts");
+/* harmony import */ var _components_widget_widget_list_order_by_pipe_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/widget/widget-list/order-by-pipe.pipe */ "./src/app/components/widget/widget-list/order-by-pipe.pipe.ts");
+/* harmony import */ var _safe_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./safe.pipe */ "./src/app/safe.pipe.ts");
+
+
 
 
 
@@ -235,7 +239,9 @@ var AppModule = /** @class */ (function () {
                 _components_widget_widget_edit_widget_header_widget_header_component__WEBPACK_IMPORTED_MODULE_20__["WidgetHeaderComponent"],
                 _components_widget_widget_edit_widget_image_widget_image_component__WEBPACK_IMPORTED_MODULE_21__["WidgetImageComponent"],
                 _components_widget_widget_edit_widget_youtube_widget_youtube_component__WEBPACK_IMPORTED_MODULE_22__["WidgetYoutubeComponent"],
-                _safe_pipe__WEBPACK_IMPORTED_MODULE_27__["SafePipe"]
+                _safe_pipe__WEBPACK_IMPORTED_MODULE_29__["SafePipe"],
+                _components_widget_widget_list_sortable_directive__WEBPACK_IMPORTED_MODULE_27__["SortableDirective"],
+                _components_widget_widget_list_order_by_pipe_pipe__WEBPACK_IMPORTED_MODULE_28__["OrderByPipe"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -1401,7 +1407,7 @@ module.exports = "body {\n  padding-top: 70px;\n  padding-bottom: 70px;\n}\ninpu
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm bg-light fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a [routerLink]=\"['../']\" class=\"cl-text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand cl-text-black cl-text-bold\" [routerLink]=\"['./']\">\n        Widgets Edit\n      </a>\n    </div>\n\n    <div class=\"navbar-text float-right\">\n      <a [routerLink]=\"['../']\" class=\"cl-icon-padding cl-text-black\" (click) = \"update()\">\n        <i class=\"fas fa-check fontawsome_icon\"></i>\n      </a>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container\">\n  <form (ngSubmit) = \"update()\" #f=\"ngForm\">\n    <div class=\"form-group\">\n      <label for=\"image-text\">Text</label>\n      <input type=\"text\" class=\"form-control\" id=\"image-text\" placeholder={{widget.text}}\n             ngModel required\n             name=\"text\" [(ngModel)]=\"widget.text\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"size\">Size</label>\n      <input type=\"text\" class=\"form-control\" id=\"size\" placeholder=\"Widget size\"\n             name=\"size\" [(ngModel)]=\"widget.size\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"image-URL\">URL</label>\n      <input type=\"text\" class=\"form-control\" id=\"image-URL\" placeholder={{widget.url}}\n             ngModel required\n             name=\"url\" [(ngModel)]=\"widget.url\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"image-width\">Width</label>\n      <input type=\"text\" class=\"form-control\" id=\"image-width\" placeholder={{widget.width}}\n             ngModel required\n             name=\"width\" [(ngModel)]=\"widget.width\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"image-inputFile\">Upload</label>\n      <input\n        type=\"file\"\n        class=\"form-control\"\n        name=\"upload\"\n        id=\"image-inputFile\">\n    </div>\n    <button class=\"btn btn-primary btn-block\" type=\"submit\">Upload Image</button>\n    <!--<div class=\"form-group\">-->\n      <!--<label for=\"exampleInputFile\">Upload</label>-->\n      <!--<input type=\"file\" class=\"form-control\" id=\"exampleInputFile\"-->\n             <!--ngModel required-->\n             <!--name=\"file\" #file=\"ngModel\"/>-->\n    <!--</div>-->\n    <!--<div class=\"form-group\">-->\n      <!--<label for=\"exampleInputFile\">Upload</label>-->\n      <!--<form ngNoForm (click)=\"upload()\" method=\"post\" enctype=\"multipart/form-data\">-->\n        <!--<input  name=\"myFile\" type=\"file\" class=\"form-control\"  id=\"exampleInputFile\"/>-->\n        <!--&lt;!&ndash;<input  name=\"widgetId\" value=\"{{wgid}}\"   style=\"display: none\"/>&ndash;&gt;-->\n        <!--&lt;!&ndash;<input  name=\"websiteId\" value=\"{{websiteId}}\"   style=\"display: none\"/>&ndash;&gt;-->\n        <!--&lt;!&ndash;<input  name=\"pageId\" value=\"{{pageID}}\"   style=\"display: none\"/>&ndash;&gt;-->\n        <!--&lt;!&ndash;<input  name=\"userId\" value=\"{{userId}}\"   style=\"display: none\"/>&ndash;&gt;-->\n        <!--<button type=\"submit\" class=\"btn btn-block btn-primary\" [routerLink]=\"['./']\">Upload Image</button>-->\n      <!--</form>-->\n    <!--</div>-->\n  </form>\n  <!--<a class=\"btn btn-primary btn-block\" href=\"#\">Upload Image</a>-->\n  <a class=\"btn btn-danger  btn-block\" [routerLink]=\"['../']\" (click) = \"delete()\">Delete</a>\n</div>\n\n<nav class=\"navbar bg-light fixed-bottom w-100 justify-content-end\">\n  <div class=\"container-fuild\">\n    <a [routerLink]=\"['../../../../../../']\" class=\"navbar-link navbar-text cl-text-blue cl-icon-padding\">\n      <i class=\"fas fa-user fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-expand-sm bg-light fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a [routerLink]=\"['../']\" class=\"cl-text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand cl-text-black cl-text-bold\" [routerLink]=\"['./']\">\n        Widgets Edit\n      </a>\n    </div>\n\n    <div class=\"navbar-text float-right\">\n      <a [routerLink]=\"['../']\" class=\"cl-icon-padding cl-text-black\" (click) = \"update()\">\n        <i class=\"fas fa-check fontawsome_icon\"></i>\n      </a>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container\">\n  <form (ngSubmit) = \"update()\" #f=\"ngForm\">\n    <div class=\"form-group\">\n      <label for=\"image-text\">Text</label>\n      <input type=\"text\" class=\"form-control\" id=\"image-text\" placeholder={{widget.text}}\n             ngModel required\n             name=\"text\" [(ngModel)]=\"widget.text\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"size\">Size</label>\n      <input type=\"text\" class=\"form-control\" id=\"size\" placeholder=\"Widget size\"\n             name=\"size\" [(ngModel)]=\"widget.size\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"image-URL\">URL</label>\n      <input type=\"text\" class=\"form-control\" id=\"image-URL\" placeholder={{widget.url}}\n             ngModel required\n             name=\"url\" [(ngModel)]=\"widget.url\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"image-width\">Width</label>\n      <input type=\"text\" class=\"form-control\" id=\"image-width\" placeholder={{widget.width}}\n             ngModel required\n             name=\"width\" [(ngModel)]=\"widget.width\"/>\n    </div>\n  </form>\n\n  <form ngNoForm action=\"{{baseUrl}}/api/upload\" method=\"post\" enctype=\"multipart/form-data\">\n\n    <input  name=\"myFile\"   type=\"file\" class=\"form-control\"/>\n    <input  name=\"widgetId\" value=\"{{wgid}}\"   style=\"display: none\"/>\n    <input  name=\"websiteId\" value=\"{{websiteId}}\"   style=\"display: none\"/>\n    <input  name=\"pageId\" value=\"{{pageID}}\"   style=\"display: none\"/>\n    <input  name=\"userId\" value=\"{{userId}}\"   style=\"display: none\"/>\n    <button type=\"submit\" class=\"btn btn-block btn-primary\">Upload Image</button>\n    <br/>\n\n  </form>\n\n    <!--<div class=\"form-group\">-->\n      <!--<label for=\"image-inputFile\">Upload</label>-->\n      <!--<input-->\n        <!--type=\"file\"-->\n        <!--class=\"form-control\"-->\n        <!--name=\"upload\"-->\n        <!--id=\"image-inputFile\">-->\n    <!--</div>-->\n    <!--<button class=\"btn btn-primary btn-block\" type=\"submit\">Upload Image</button>-->\n\n  <a class=\"btn btn-danger  btn-block\" [routerLink]=\"['../']\" (click) = \"delete()\">Delete</a>\n</div>\n\n<nav class=\"navbar bg-light fixed-bottom w-100 justify-content-end\">\n  <div class=\"container-fuild\">\n    <a [routerLink]=\"['../../../../../../']\" class=\"navbar-link navbar-text cl-text-blue cl-icon-padding\">\n      <i class=\"fas fa-user fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1421,6 +1427,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_widget_model_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../models/widget.model.client */ "./src/app/models/widget.model.client.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_widget_service_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../services/widget.service.client */ "./src/app/services/widget.service.client.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -1441,18 +1449,7 @@ var WidgetImageComponent = /** @class */ (function () {
         this.widgetService.createWidget(this.pageID, new_widget);
     };
     WidgetImageComponent.prototype.update = function () {
-        // this.text = this.imageForm.value.text;
-        // this.url = this.imageForm.value.url;
-        // this.width = this.imageForm.value.width;
-        //
-        // console.log(this.text);
-        //
-        // const new_widget = new Widget(undefined, 'IMAGE', this.pageID,
-        //   '1', this.text.toString(), this.width.toString(), this.url.toString());
-        // console.log(new_widget);
         var _this = this;
-        // this.widgetService.updateWidget(this.wgid, new_widget);
-        // console.log(this.widgetService.widgets);
         this.widgetService.updateWidget(this.wgid, this.widget)
             .subscribe(function (data) { return _this.route.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page', _this.pageID, 'widget']); }, function (error) { return console.log(error); });
     };
@@ -1461,6 +1458,7 @@ var WidgetImageComponent = /** @class */ (function () {
     };
     WidgetImageComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.baseUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].baseUrl;
         this.activatedRoute.params.subscribe(function (params) {
             _this.userId = params['uid'];
             _this.websiteId = params['wid'];
@@ -1591,6 +1589,103 @@ var WidgetYoutubeComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/widget/widget-list/order-by-pipe.pipe.ts":
+/*!*********************************************************************!*\
+  !*** ./src/app/components/widget/widget-list/order-by-pipe.pipe.ts ***!
+  \*********************************************************************/
+/*! exports provided: OrderByPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderByPipe", function() { return OrderByPipe; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var OrderByPipe = /** @class */ (function () {
+    function OrderByPipe() {
+    }
+    OrderByPipe.prototype.transform = function (array, args) {
+        array.sort(function (a, b) {
+            if (a.position < b.position) {
+                return -1;
+            }
+            else if (a.position > b.position) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        });
+        return array;
+    };
+    OrderByPipe = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({
+            name: 'orderBy'
+        })
+    ], OrderByPipe);
+    return OrderByPipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/widget/widget-list/sortable.directive.ts":
+/*!*********************************************************************!*\
+  !*** ./src/app/components/widget/widget-list/sortable.directive.ts ***!
+  \*********************************************************************/
+/*! exports provided: SortableDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SortableDirective", function() { return SortableDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var SortableDirective = /** @class */ (function () {
+    function SortableDirective(el) {
+        this.el = el;
+        this.newIndexes = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"](); // this will emit an event for the parent component or the directive calling component
+    }
+    // Lifecycle hook that is called after a component's view has been fully initialized
+    SortableDirective.prototype.ngAfterViewInit = function () {
+        this.appSortable(this);
+    };
+    SortableDirective.prototype.appSortable = function (refe) {
+        jQuery(this.el.nativeElement).sortable({
+            axis: 'y',
+            start: function (event, ui) {
+                refe.initialIndex = ui.item.index();
+            },
+            stop: function (event, ui) {
+                refe.newIndexes.emit({
+                    startIndex: refe.initialIndex,
+                    endIndex: ui.item.index()
+                });
+            }
+        });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], SortableDirective.prototype, "newIndexes", void 0);
+    SortableDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: '[appSortable]'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+    ], SortableDirective);
+    return SortableDirective;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/widget/widget-list/widget-list.component.css":
 /*!*************************************************************************!*\
   !*** ./src/app/components/widget/widget-list/widget-list.component.css ***!
@@ -1609,7 +1704,7 @@ module.exports = "body {\n  padding-top: 70px;\n  padding-bottom: 70px;\n}\ninpu
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm bg-light fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a [routerLink]=\"['../../']\" class=\"cl-text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand cl-text-black cl-text-bold\" [routerLink]=\"['./']\">\n        Widgets\n      </a>\n    </div>\n\n    <div class=\"navbar-text float-right\">\n      <a [routerLink]=\"['./new']\" class=\"cl-icon-padding cl-text-black\">\n        <i class=\"fas fa-plus fontawsome_icon\"></i>\n      </a>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container cl-container-padding\">\n  <div *ngFor=\"let widget of widgets\">\n\n    <div [ngSwitch]=\"widget.widgetType\">\n      <div *ngSwitchCase=\"'HEADING'\">\n        <div class=\"float-right\">\n          <a [routerLink]=\"['./']\" class=\"pull-right\">\n            <i class=\"fa fa-bars fontawsome_icon\"></i>\n          </a>\n          <a [routerLink]=\"['./', widget._id]\" class=\"pull-right\">\n            <i class=\"fas fa-cog fontawsome_icon\"></i>\n          </a>\n        </div>\n        <div [ngSwitch]=\"widget.size\">\n          <h1  *ngSwitchCase=\"1\">{{widget.text}}</h1>\n          <h2  *ngSwitchCase=\"2\">{{widget.text}}</h2>\n          <h3  *ngSwitchCase=\"3\">{{widget.text}}</h3>\n          <h4  *ngSwitchCase=\"4\">{{widget.text}}</h4>\n          <h5  *ngSwitchCase=\"5\">{{widget.text}}</h5>\n          <h6  *ngSwitchCase=\"6\">{{widget.text}}</h6>\n        </div>\n      </div>\n\n      <div *ngSwitchCase=\"'YOUTUBE'\" class=\"youtube-widget\">\n        <div>\n          <iframe width=\"560\" height=\"315\" [src]=\"widget.url | safe\" frameborder=\"0\" allowfullscreen=\"\" ></iframe>\n        </div>\n        <div class=\"float-right\">\n          <a [routerLink]=\"['./']\" class=\"pull-right\">\n            <i class=\"fa fa-bars fontawsome_icon\"></i>\n          </a>\n          <a [routerLink]=\"['./', widget._id]\" class=\"pull-right\">\n            <i class=\"fas fa-cog fontawsome_icon\"></i>\n          </a>\n        </div>\n      </div>\n\n      <div *ngSwitchCase=\"'IMAGE'\">\n        <img class=\"img-responsive img-rounded cl-widget-images\" [src]=widget.url>\n        <div class=\"float-right\">\n          <a [routerLink]=\"['./']\" class=\"pull-right\">\n            <i class=\"fa fa-bars fontawsome_icon\"></i>\n          </a>\n          <a [routerLink]=\"['./', widget._id]\" class=\"pull-right\">\n            <i class=\"fas fa-cog fontawsome_icon\"></i>\n          </a>\n        </div>\n      </div>\n\n      <div *ngSwitchCase=\"'HTML'\">\n        <div [innerHTML]=\"widget.text\"></div>\n        <div class=\"float-right\">\n          <a [routerLink]=\"['./']\" class=\"pull-right\">\n            <i class=\"fa fa-bars fontawsome_icon\"></i>\n          </a>\n          <a [routerLink]=\"['./', widget._id]\" class=\"pull-right\">\n            <i class=\"fas fa-cog fontawsome_icon\"></i>\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<nav class=\"navbar bg-light fixed-bottom\">\n  <ul>\n    <a [routerLink]=\"['./']\" class=\"navbar-link cl-icon-padding\">\n      <i class=\"fa fa-play\"></i>\n    </a >\n    <a [routerLink]=\"['./']\" class=\"navbar-link cl-icon-padding\">\n      <i class=\"fa fa-eye\"></i>\n    </a >\n  </ul>\n\n  <ul>\n    <a [routerLink]=\"['../../../../../']\" class=\"navbar-link pull-right cl-icon-padding\">\n      <i class=\"fa fa-user\"></i>\n    </a >\n  </ul>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-expand-sm bg-light fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a [routerLink]=\"['../../']\" class=\"cl-text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand cl-text-black cl-text-bold\" [routerLink]=\"['./']\">\n        Widgets\n      </a>\n    </div>\n\n    <div class=\"navbar-text float-right\">\n      <a [routerLink]=\"['./new']\" class=\"cl-icon-padding cl-text-black\">\n        <i class=\"fas fa-plus fontawsome_icon\"></i>\n      </a>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container cl-container-padding\">\n  <div class=\"widget-list\" appSortable (newIndexes)=\"reorderWidgets($event)\">\n  <div *ngFor=\"let widget of widgets | orderBy\">\n\n    <div [ngSwitch]=\"widget.widgetType\">\n\n      <div class=\"jga-widget\">\n\n        <div class=\"jga-widget-tool\">\n          <div class=\"float-right\">\n            <a [routerLink]=\"['./']\" class=\"pull-right\">\n              <i class=\"fa fa-bars fontawsome_icon\"></i>\n            </a>\n            <a [routerLink]=\"['./', widget._id]\" class=\"pull-right\">\n              <i class=\"fas fa-cog fontawsome_icon\"></i>\n            </a>\n          </div>\n        </div>\n          <div *ngSwitchCase=\"'HEADING'\">\n            <div [ngSwitch]=\"widget.size\">\n              <h1  *ngSwitchCase=\"1\">{{widget.text}}</h1>\n              <h2  *ngSwitchCase=\"2\">{{widget.text}}</h2>\n              <h3  *ngSwitchCase=\"3\">{{widget.text}}</h3>\n              <h4  *ngSwitchCase=\"4\">{{widget.text}}</h4>\n              <h5  *ngSwitchCase=\"5\">{{widget.text}}</h5>\n              <h6  *ngSwitchCase=\"6\">{{widget.text}}</h6>\n            </div>\n          </div>\n\n      <div *ngSwitchCase=\"'YOUTUBE'\" class=\"youtube-widget\">\n        <div>\n          <iframe width=\"560\" height=\"315\" [src]=\"widget.url | safe\" frameborder=\"0\" allowfullscreen=\"\" ></iframe>\n        </div>\n        <div class=\"float-right\">\n          <a [routerLink]=\"['./']\" class=\"pull-right\">\n            <i class=\"fa fa-bars fontawsome_icon\"></i>\n          </a>\n          <a [routerLink]=\"['./', widget._id]\" class=\"pull-right\">\n            <i class=\"fas fa-cog fontawsome_icon\"></i>\n          </a>\n        </div>\n      </div>\n\n      <div *ngSwitchCase=\"'IMAGE'\">\n        <img class=\"img-responsive img-rounded cl-widget-images\" [src]=widget.url>\n        <div class=\"float-right\">\n          <a [routerLink]=\"['./']\" class=\"pull-right\">\n            <i class=\"fa fa-bars fontawsome_icon\"></i>\n          </a>\n          <a [routerLink]=\"['./', widget._id]\" class=\"pull-right\">\n            <i class=\"fas fa-cog fontawsome_icon\"></i>\n          </a>\n        </div>\n      </div>\n\n      <div *ngSwitchCase=\"'HTML'\">\n        <div [innerHTML]=\"widget.text\"></div>\n        <div class=\"float-right\">\n          <a [routerLink]=\"['./']\" class=\"pull-right\">\n            <i class=\"fa fa-bars fontawsome_icon\"></i>\n          </a>\n          <a [routerLink]=\"['./', widget._id]\" class=\"pull-right\">\n            <i class=\"fas fa-cog fontawsome_icon\"></i>\n          </a>\n        </div>\n      </div>\n      </div>\n    </div>\n  </div>\n  </div>\n</div>\n\n<nav class=\"navbar bg-light fixed-bottom\">\n  <ul>\n    <a [routerLink]=\"['./']\" class=\"navbar-link cl-icon-padding\">\n      <i class=\"fa fa-play\"></i>\n    </a >\n    <a [routerLink]=\"['./']\" class=\"navbar-link cl-icon-padding\">\n      <i class=\"fa fa-eye\"></i>\n    </a >\n  </ul>\n\n  <ul>\n    <a [routerLink]=\"['../../../../../']\" class=\"navbar-link pull-right cl-icon-padding\">\n      <i class=\"fa fa-user\"></i>\n    </a >\n  </ul>\n</nav>\n"
 
 /***/ }),
 

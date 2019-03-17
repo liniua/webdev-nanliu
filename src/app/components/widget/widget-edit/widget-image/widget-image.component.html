@@ -44,34 +44,30 @@
              ngModel required
              name="width" [(ngModel)]="widget.width"/>
     </div>
-    <div class="form-group">
-      <label for="image-inputFile">Upload</label>
-      <input
-        type="file"
-        class="form-control"
-        name="upload"
-        id="image-inputFile">
-    </div>
-    <button class="btn btn-primary btn-block" type="submit">Upload Image</button>
-    <!--<div class="form-group">-->
-      <!--<label for="exampleInputFile">Upload</label>-->
-      <!--<input type="file" class="form-control" id="exampleInputFile"-->
-             <!--ngModel required-->
-             <!--name="file" #file="ngModel"/>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="exampleInputFile">Upload</label>-->
-      <!--<form ngNoForm (click)="upload()" method="post" enctype="multipart/form-data">-->
-        <!--<input  name="myFile" type="file" class="form-control"  id="exampleInputFile"/>-->
-        <!--&lt;!&ndash;<input  name="widgetId" value="{{wgid}}"   style="display: none"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<input  name="websiteId" value="{{websiteId}}"   style="display: none"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<input  name="pageId" value="{{pageID}}"   style="display: none"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<input  name="userId" value="{{userId}}"   style="display: none"/>&ndash;&gt;-->
-        <!--<button type="submit" class="btn btn-block btn-primary" [routerLink]="['./']">Upload Image</button>-->
-      <!--</form>-->
-    <!--</div>-->
   </form>
-  <!--<a class="btn btn-primary btn-block" href="#">Upload Image</a>-->
+
+  <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
+
+    <input  name="myFile"   type="file" class="form-control"/>
+    <input  name="widgetId" value="{{wgid}}"   style="display: none"/>
+    <input  name="websiteId" value="{{websiteId}}"   style="display: none"/>
+    <input  name="pageId" value="{{pageID}}"   style="display: none"/>
+    <input  name="userId" value="{{userId}}"   style="display: none"/>
+    <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
+    <br/>
+
+  </form>
+
+    <!--<div class="form-group">-->
+      <!--<label for="image-inputFile">Upload</label>-->
+      <!--<input-->
+        <!--type="file"-->
+        <!--class="form-control"-->
+        <!--name="upload"-->
+        <!--id="image-inputFile">-->
+    <!--</div>-->
+    <!--<button class="btn btn-primary btn-block" type="submit">Upload Image</button>-->
+
   <a class="btn btn-danger  btn-block" [routerLink]="['../']" (click) = "delete()">Delete</a>
 </div>
 

@@ -1,10 +1,7 @@
 module.exports=function(app) {
-  // app.get('/api/widget', helloworld);
-  //
-  // function helloworld(req, res) {
-  //   console.log("Get hello widget!");
-  //   res.status(200).send("Hello world widget...");
-  // }
+
+  var multer = require('multer'); // npm install multer --save
+  var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
 
   //POST calls
   app.post("/api/page/:pageId/widget", createWidget);
@@ -17,6 +14,11 @@ module.exports=function(app) {
   //app.put("/page/:pageId/widget", reSortWidget);
   //delete calls
   app.delete("/api/widget/:widgetId", deleteWidget);
+  //Reorder
+  app.put("/api/page/:pageId/widget",reorderWidgets);
+
+  //UPLOAD
+  app.post ("/api/upload", upload.single('myFile'), uploadImage);
 
   var widgets = [
     {_id: '123', widgetType: 'HEADING', pageId: '321',size:  '2', text:'GOP Releases Formerly Classified Memo Critical Of FBI' },
@@ -89,5 +91,73 @@ module.exports=function(app) {
     }
     res.json(widgets);
   }
+
+  function reorderWidgets(req,res) {
+
+    var startIndex = parseInt(req.query["start"]);
+    var endIndex = parseInt(req.query["end"]);
+
+    array_swap(widgets, startIndex, endIndex);
+    //res.send(200);
+  }
+
+  function array_swap(arr, old_index, new_index) {
+    while (old_index < 0) {
+      old_index += arr.length;
+    }
+    while (new_index < 0) {
+      new_index += arr.length;
+    }
+    if (new_index >= arr.length) {
+      var k = new_index - arr.length + 1;
+      while (k--) {
+        arr.push(undefined);
+      }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+  }
+
+
+  function uploadImage(req, res) {
+    var userId = req.body.userId;
+    var websiteId = req.body.websiteId;
+    var pageId = req.body.pageId;
+
+
+    var widgetId      = req.body.widgetId;
+    var width         = req.body.width;
+    var myFile        = req.file;
+    console.log('widgetId: ' + widgetId);
+
+    if(myFile == null) {
+      //res.redirect("https://yourheroku.herokuapp.com/user/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+      //res.redirect("http://localhost:8080/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+      return;
+    }
+
+
+    var originalname  = myFile.originalname; // file name on user's computer
+    var filename      = myFile.filename;     // new file name in upload folder
+    var path          = myFile.path;         // full path of uploaded file
+    var destination   = myFile.destination;  // folder where file is saved to
+    var size          = myFile.size;
+    var mimetype      = myFile.mimetype;
+
+
+    var widget = { url: "assets/uploads/"+filename+".jpg"};
+    //var widget = { url: "dist/"+filename};
+
+    for (var i = 0; i < widgets.length; i++) {
+      if (widgets[i]._id === widgetId) {
+        widgets[i].url = widget.url;
+        console.log('update widget: ' + widgets[i]);
+      }
+    }
+    //widget.url = 'uploads/' + filename;
+
+    //res.redirect("https://yourheroku.herokuapp.com/user/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+    //res.redirect("http://localhost:8080/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/");
+  }
+
 
 };

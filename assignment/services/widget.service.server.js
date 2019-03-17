@@ -25,7 +25,6 @@ module.exports=function(app) {
     {_id: '234', widgetType: 'HEADING', pageId: '321',size: '4', text: 'It hints at a new GOP target: deputy attorney general' },
     {_id: '345', widgetType: 'IMAGE', pageId: '321',size:  '2',text: 'text', width:'100%',
       url: 'https://media.fox5dc.com/media.fox5dc.com/photo/2018/02/01/trump_classified_1517500733623_4880181_ver1.0_640_360.jpg'},
-    {_id: '456', widgetType: 'HTML', pageId: '321',size: '2', text: '<p>blalbla</p>' },
     {_id: '567', widgetType: 'HEADING', pageId: '321', size: '4', text: 'Memo asserts bias on part of FBI investigation in Russia probe'},
     {_id: '678', widgetType: 'YOUTUBE', pageId: '321', size: '2',text:  'text', width: '100%', url: 'https://www.youtube.com/embed/I84wnvEqGXc'},
   ];

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://localhost:8080'
+  baseUrl: 'https://webdev-nanliu-cs5610.herokuapp.com'
 };

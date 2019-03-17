@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
-
+  baseUrl = environment.baseUrl;
   constructor(private http: HttpClient) { }
 
 
@@ -17,31 +17,31 @@ export class UserService {
       username: username,
       password: password
     };
-    return this.http.post('http://localhost:8080/api/user', body);
+    return this.http.post(this.baseUrl + '/api/user/', body);
   }
 
   findUserById(userId: String) {
-    return this.http.get('http://localhost:8080/api/user/' + userId);
+    return this.http.get(this.baseUrl + '/api/user/' + userId);
       // .pipe(map((response: Response) => {
       //   return response.json();
       // }));
   }
 
   findUserByUsername(username: String) {
-    return this.http.get('http://localhost:8080/api/user?username=' + username);
+    return this.http.get(this.baseUrl + '/api/user?username=' + username);
   }
 
   findUserByCredentials(username: String, password: String) {
-    return this.http.get('http://localhost:8080/api/user?username=' + username + '&password=' + password);
+    return this.http.get(this.baseUrl + '/api/user?username=' + username + '&password=' + password);
   }
 
 
   updateUser(user: User) {
-    return this.http.put('http://localhost:8080/api/user/' + user._id, user);
+    return this.http.put(this.baseUrl + '/api/user/' + user._id, user);
 
   }
 
   deleteUser(userId: String) {
-    return this.http.delete('http://localhost:8080/api/user/' + userId);
+    return this.http.delete(this.baseUrl + '/api/user/' + userId);
   }
 }

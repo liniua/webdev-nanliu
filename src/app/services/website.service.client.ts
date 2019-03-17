@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Website} from '../models/website.model.client';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 
 @Injectable()
 export class WebsiteService {
-
+  baseUrl = environment.baseUrl;
   constructor(private http: HttpClient) {}
   // websites = [
   //   new Website('123', 'Facebook', '456', 'Lorem'),
@@ -20,28 +21,28 @@ export class WebsiteService {
 
   createWebsite(userId: String, website: Website) {
     const body = website;
-    const url = 'http://localhost:8080/api/user/' + userId + '/website';
+    const url = this.baseUrl + '/api/user/' + userId + '/website';
     console.log(body);
     return this.http.post(url, body);
   }
 
   findWebsitesByUser(userId: String) {
-    return this.http.get('http://localhost:8080/api/user/' + userId + '/website');
+    return this.http.get(this.baseUrl + '/api/user/' + userId + '/website');
   }
 
   findWebsitesById(userId: String, websiteId: String) {
-    return this.http.get('http://localhost:8080/api/user/' + userId + '/website/' + websiteId);
+    return this.http.get(this.baseUrl + '/api/user/' + userId + '/website/' + websiteId);
   }
 
   updateWebsite(userId: String, websiteId: String, website: Website) {
 
-    const url = 'http://localhost:8080/api/user/' + userId + '/website/' + websiteId;
+    const url = this.baseUrl + '/api/user/' + userId + '/website/' + websiteId;
     const body = website;
     return this.http.put(url, body);
   }
 
   deleteWebsite(userId: String, websiteId: String) {
-    const url = 'http://localhost:8080/api/user/' + userId + '/website/' + websiteId;
+    const url = this.baseUrl + '/api/user/' + userId + '/website/' + websiteId;
     return this.http.delete(url);
   }
 }

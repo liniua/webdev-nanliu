@@ -3,6 +3,16 @@ module.exports=function(app) {
   var multer = require('multer'); // npm install multer --save
   var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
 
+  // var multerConf = {
+  //   storage: multer.diskStorage({
+  //     destination: __dirname + '/../../dist/my-project/assets/uploads/',
+  //     filename: function (req, file, cb) {
+  //       console.log(file);
+  //       cb(null, file.originalname);
+  //     }
+  //   }),
+  // };
+
   //POST calls
   app.post("/api/page/:pageId/widget", createWidget);
   //app.post ("/api/upload", upload.single('myFile'), uploadImage);
@@ -19,7 +29,7 @@ module.exports=function(app) {
 
   //UPLOAD
   app.post ("/api/upload", upload.single('myFile'), uploadImage);
-
+  //app.post ("/api/upload", multer(multerConf).single('myFile'), uploadImage);
   var widgets = [
     {_id: '123', widgetType: 'HEADING', pageId: '321',size:  '2', text:'GOP Releases Formerly Classified Memo Critical Of FBI' },
     {_id: '234', widgetType: 'HEADING', pageId: '321',size: '4', text: 'It hints at a new GOP target: deputy attorney general' },
@@ -127,6 +137,7 @@ module.exports=function(app) {
     var width         = req.body.width;
     var myFile        = req.file;
     console.log('widgetId: ' + widgetId);
+    console.log('myFile: ' + myFile);
 
     if(myFile == null) {
       //res.redirect("https://yourheroku.herokuapp.com/user/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
@@ -149,13 +160,16 @@ module.exports=function(app) {
     for (var i = 0; i < widgets.length; i++) {
       if (widgets[i]._id === widgetId) {
         widgets[i].url = widget.url;
-        console.log('update widget: ' + widgets[i]);
+        console.log('update widget: ' + widgets[i].url);
+        //res.json('update widget:' + widgets[i]);
+
       }
     }
+    res.redirect("https://webdev-nanliu-cs5610.herokuapp.com/user/" +userId+"/website/"+websiteId+"/page/"+pageId+"/widget");
     //widget.url = 'uploads/' + filename;
 
     //res.redirect("https://yourheroku.herokuapp.com/user/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
-    //res.redirect("http://localhost:8080/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/");
+    //res.redirect("http://localhost:8080/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget");
   }
 
 

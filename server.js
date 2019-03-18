@@ -1,5 +1,6 @@
 // Get the dependencies
 
+
 const express = require('express');
 const path = require('path');
 const http = require('http');
@@ -9,8 +10,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 // Point static path to dist -- For building -- REMOVE
 app.use(express.static(path.join(__dirname, 'dist/my-project')));
+
 
 // CORS
 app.use(function(req, res, next) {

@@ -23,7 +23,7 @@
   <ng-form (ngSubmit) = "updateUser()" #f="ngForm">
     <div class="form-group">
       <label for="username">Username</label>
-      <input [(ngModel)]="username"
+      <input [(ngModel)]="user.username"
              name="username"
              type="text"
              class="form-control"
@@ -35,7 +35,7 @@
     </div>
     <div class="form-group">
       <label for="email">Email address</label>
-      <input [(ngModel)]="email"
+      <input [(ngModel)]="user.email"
              name="email"
              type="email"
              class="form-control"
@@ -47,7 +47,7 @@
     </div>
     <div class="form-group">
       <label for="first-name">First Name</label>
-      <input [(ngModel)]="firstName"
+      <input [(ngModel)]="user.firstName"
              name="firstName"
              type="text"
              class="form-control"
@@ -59,7 +59,7 @@
     </div>
     <div class="form-group">
       <label for="last-name">Last Name</label>
-      <input [(ngModel)]="lastName"
+      <input [(ngModel)]="user.lastName"
              name="lastName"
              type="text"
              class="form-control"

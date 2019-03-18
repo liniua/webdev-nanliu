@@ -165,11 +165,11 @@ module.exports=function(app) {
 
       }
     }
-    res.redirect("https://webdev-nanliu-cs5610.herokuapp.com/user/" +userId+"/website/"+websiteId+"/page/"+pageId+"/widget");
+    //res.redirect("https://webdev-nanliu-cs5610.herokuapp.com/user/" +userId+"/website/"+websiteId+"/page/"+pageId+"/widget");
     //widget.url = 'uploads/' + filename;
 
     //res.redirect("https://yourheroku.herokuapp.com/user/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
-    //res.redirect("http://localhost:8080/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget");
+    //res.redirect("http://localhost:8080/api/page/"+pageId+"/widget");
   }
 
 

@@ -47,7 +47,10 @@ export class WidgetImageComponent implements OnInit {
   }
 
   delete() {
-    this.widgetService.deleteWidget(this.wgid);
+    this.widgetService.deleteWidget(this.wgid) .subscribe(
+      (data: any) => this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageID, 'widget']),
+      (error: any) => console.log(error)
+    );
   }
 
   ngOnInit() {

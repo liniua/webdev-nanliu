@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   userId: String;
   user: User;
   username: String;
+  password: String;
   email: String;
   firstName: String;
   lastName: String;
@@ -49,7 +50,7 @@ export class ProfileComponent implements OnInit {
 
     const user = {_id: this.userId,
       username: this.username,
-      password: '',
+      password: this.password,
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email};

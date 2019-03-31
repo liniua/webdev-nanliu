@@ -30,7 +30,8 @@ app.set('port', port);
 
 
 // mongodb://<dbuser>:<dbpassword>@ds113505.mlab.com:13505/webdev
-var connectionString = 'mongodb://127.0.0.1:27017/webdev';
+//var connectionString = 'mongodb://127.0.0.1:27017/webdev';
+var connectionString = 'mongodb://webdev-nanliu-cs5610:webdev-nanliu-cs5610@ds051615.mlab.com:51615/heroku_2hdv4wjv';
 //var connectionString = 'mongodb://webappmaker:webappmaker@ds163181.mlab.com:63181/webappmaker';
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;

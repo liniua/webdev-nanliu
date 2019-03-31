@@ -1,10 +1,6 @@
 module.exports=function(app) {
-  // app.get('/api/page', helloworld);
-  //
-  // function helloworld(req, res) {
-  //   console.log("Get hello page!");
-  //   res.send("Hello world...");
-  // }
+
+  var PageModel = require("../model/page/page.model.server");
 
   //POST calls
   app.post("/api/website/:websiteId/page", createPage);
@@ -27,59 +23,74 @@ module.exports=function(app) {
   function createPage(req, res) {
     var websiteId = req.params['websiteId'];
     var createdPage = req.body;
-    createdPage._id = (new Date()).getDate() + "";
     createdPage.websiteId = websiteId;
-    pages.push(createdPage);
-
-    res.json(pages);
+    PageModel.createPage(websiteId, createdPage).then((page) => (res.json(page)));
+    // createdPage._id = (new Date()).getDate() + "";
+    // createdPage.websiteId = websiteId;
+    // pages.push(createdPage);
+    //
+    // res.json(pages);
   }
 
   function findAllPagesForWebsite(req, res) {
     var websiteId = req.params["websiteId"];
-    var pages_res = [];
-    for (var i = 0; i < pages.length; i++) {
-      if (pages[i].websiteId === websiteId) {
-        pages_res.push(pages[i]);
-      }
-    }
-    res.json(pages_res);
+    PageModel.findAllPagesForWebsite(websiteId).then((pages) => (res.json(pages)));
+    // var pages_res = [];
+    // for (var i = 0; i < pages.length; i++) {
+    //   if (pages[i].websiteId === websiteId) {
+    //     pages_res.push(pages[i]);
+    //   }
+    // }
+    // res.json(pages_res);
   }
 
   function findPageById(req, res){
     var pageId = req.params["pageId"];
-    var foundPage = null;
-    for (var i = 0; i < pages.length; i++) {
-      if (pages[i]._id === pageId) {
-        foundPage = pages[i];
+    PageModel.findPageById(pageId).then(function (foundPage) {
+      if (foundPage){
+        res.json(foundPage);
+      } else {
+        res.status(401);
+        res.json(foundPage);
       }
-    }
-    if (foundPage){
-      res.json(foundPage);
-    } else {
-      res.status(401);
-      res.json(foundPage);
-    }
+    });
+    // var foundPage = null;
+    // for (var i = 0; i < pages.length; i++) {
+    //   if (pages[i]._id === pageId) {
+    //     foundPage = pages[i];
+    //   }
+    // }
+    // if (foundPage){
+    //   res.json(foundPage);
+    // } else {
+    //   res.status(401);
+    //   res.json(foundPage);
+    // }
   }
 
   function updatePage(req, res) {
     var pageId = req.params["pageId"];
     var page = req.body;
-    for (var i = 0; i < pages.length; i++) {
-      if (pages[i]._id === pageId) {
-        pages[i].name = page.name;
-        pages[i].title = page.title;
-      }
-    }
-    res.json(pages);
+    PageModel.updatePage(pageId, page).then((page) => (res.json(page)));
+    // for (var i = 0; i < pages.length; i++) {
+    //   if (pages[i]._id === pageId) {
+    //     pages[i].name = page.name;
+    //     pages[i].title = page.title;
+    //   }
+    // }
+    // res.json(pages);
   }
 
   function deletePage(req, res) {
     var pageId = req.params["pageId"];
-    for (var i = 0; i < pages.length; i++) {
-      if (pages[i]._id === pageId) {
-        pages.splice(i, 1);
-      }
-    }
-    res.json(pages);
+    PageModel.deletePage(pageId).then(() => (
+      res.status(200)));
+    res.send("success");
+    // for (var i = 0; i < pages.length; i++) {
+    //   if (pages[i]._id === pageId) {
+    //     pages.splice(i, 1);
+    //   }
+    // }
+    // res.json(pages);
   }
 };

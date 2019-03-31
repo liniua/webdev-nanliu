@@ -19,7 +19,7 @@ export class WidgetChooserComponent implements OnInit {
 
   defaultWidgetValues =
     {
-      'HEADING': {_id: '', widgetType: 'HEADING', pageId: '', size: '1', text: ''},
+      'HEADING': {widgetType: 'HEADING', pageId: '', size: '1', text: ''},
       'IMAGE': {widgetType: 'IMAGE', width: '100%'},
       'YOUTUBE': {widgetType: 'YOUTUBE', width: '100%'},
       'HTML': {widgetType: 'HTML'},
@@ -47,6 +47,7 @@ export class WidgetChooserComponent implements OnInit {
   createWidget(widgetType) {
 
     this.widget = this.defaultWidgetValues[widgetType];
+    console.log(this.widget);
     this.widgetService.createWidget(this.pageId, this.widget)
       .subscribe(
         (data: Widget) => {

@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   errorFlag: boolean;
   errorMsg = 'Invalid username or password !';
 
-  constructor(private userService: UserService, private activatedRouter: ActivatedRoute) { }
+  constructor(private userService: UserService, private activatedRouter: ActivatedRoute, private route: Router) { }
 
   ngOnInit() {
     this.activatedRouter.params.subscribe(params => {
@@ -62,6 +62,7 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(user).subscribe(
         (new_user: any) => {
           this.user = new_user;
+          this.route.navigate(['./'], {relativeTo: this.activatedRouter});
         }
       );
     // console.log(user);

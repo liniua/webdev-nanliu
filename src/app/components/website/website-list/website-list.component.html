@@ -15,7 +15,7 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container cl-container-padding">
   <ul class="list-group cl-list-group-borderless">
     <li *ngFor="let website of websites" class="list-group-item cl-list-item-borderless">
       <a [routerLink]="['/user', userId, 'website', website._id]">

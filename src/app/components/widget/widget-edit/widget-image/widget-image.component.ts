@@ -28,16 +28,6 @@ export class WidgetImageComponent implements OnInit {
               private widgetService: WidgetService,
               private route: Router) {}
 
-  upload() {
-    this.text = this.imageForm.value.text;
-    this.url = this.imageForm.value.url;
-    this.width = this.imageForm.value.width;
-
-    const new_widget = new Widget(undefined, 'IMAGE', this.pageID,
-      '1', this.text.toString(), this.width.toString(), this.url.toString());
-    this.widgetService.createWidget(this.pageID, new_widget);
-  }
-
   update() {
     this.widgetService.updateWidget(this.wgid, this.widget)
       .subscribe(
@@ -53,6 +43,9 @@ export class WidgetImageComponent implements OnInit {
     );
   }
 
+  search() {
+    this.route.navigate(['./flickr'], {relativeTo: this.activatedRoute});
+  }
   ngOnInit() {
     this.baseUrl = environment.baseUrl;
     this.activatedRoute.params.subscribe(

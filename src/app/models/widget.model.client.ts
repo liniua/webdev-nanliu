@@ -1,11 +1,21 @@
 export class Widget {
   _id: String;
+  name: String;
+  placeholder: String;
+  description: String;
+  width: String;
+  height: String;
+  rows: Number;
+  class: String;
+  icon: String;
+  deletable: Boolean;
+  formatted: Boolean;
   widgetType: String;
   pageId: String;
   size: String;
   text: String;
   url: String;
-  width: String;
+
 
   constructor(_id: String, type: String, pageId: String, size: String, text: String, width: String, url: String) {
     this._id = _id;

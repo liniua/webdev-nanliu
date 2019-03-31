@@ -13,6 +13,7 @@ export class WidgetTextComponent implements OnInit {
   wgid: String;
   pageID: String;
   widget: Widget;
+  text: any;
   constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private route: Router) { }
 
   delete() {

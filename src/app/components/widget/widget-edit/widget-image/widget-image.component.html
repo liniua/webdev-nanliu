@@ -19,7 +19,7 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container cl-container-padding">
   <form (ngSubmit) = "update()" #f="ngForm">
     <div class="form-group">
       <label for="image-text">Text</label>
@@ -44,32 +44,21 @@
              ngModel required
              name="width" [(ngModel)]="widget.width"/>
     </div>
+
+    <div class="form-group">
+      <label for="exampleInputFile">Upload</label>
+      <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
+        <input  name="myFile"   type="file" class="form-control"  id="exampleInputFile"/>
+        <input  name="widgetId" value="{{wgid}}"   style="display: none"/>
+        <input  name="websiteId" value="{{websiteId}}"   style="display: none"/>
+        <input  name="pageId" value="{{pageID}}"   style="display: none"/>
+        <input  name="userId" value="{{userId}}"   style="display: none"/>
+        <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
+      </form>
+    </div>
+    <button class="btn btn-primary btn-block" type="button" (click)="search()">Search</button>
+    <button class="btn btn-danger btn-block" type="button" (click)="delete()" [routerLink]="['../']">Delete</button>
   </form>
-
-  <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
-
-    <input  name="myFile"   type="file" class="form-control"/>
-    <input  name="widgetId" value="{{wgid}}"   style="display: none"/>
-    <input  name="websiteId" value="{{websiteId}}"   style="display: none"/>
-    <input  name="pageId" value="{{pageID}}"   style="display: none"/>
-    <input  name="userId" value="{{userId}}"   style="display: none"/>
-    <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
-    <br/>
-
-  </form>
-
-    <!--<div class="form-group">-->
-      <!--<label for="image-inputFile">Upload</label>-->
-      <!--<input-->
-        <!--type="file"-->
-        <!--class="form-control"-->
-        <!--name="upload"-->
-        <!--id="image-inputFile">-->
-    <!--</div>-->
-    <!--<button class="btn btn-primary btn-block" type="submit">Upload Image</button>-->
-
-  <!--<a class="btn btn-danger  btn-block" [routerLink]="['../']" (click) = "delete()">Delete</a>-->
-  <button class="btn btn-danger btn-block" type="button" (click)="delete()" [routerLink]="['../']">Delete</button>
 </div>
 
 <nav class="navbar bg-light fixed-bottom w-100 justify-content-end">

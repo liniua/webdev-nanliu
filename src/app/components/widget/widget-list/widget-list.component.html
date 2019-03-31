@@ -37,54 +37,53 @@
             </a>
           </div>
         </div>
-          <div *ngSwitchCase="'HEADING'">
-            <div [ngSwitch]="widget.size">
-              <h1  *ngSwitchCase="1">{{widget.text}}</h1>
-              <h2  *ngSwitchCase="2">{{widget.text}}</h2>
-              <h3  *ngSwitchCase="3">{{widget.text}}</h3>
-              <h4  *ngSwitchCase="4">{{widget.text}}</h4>
-              <h5  *ngSwitchCase="5">{{widget.text}}</h5>
-              <h6  *ngSwitchCase="6">{{widget.text}}</h6>
-            </div>
+        <div *ngSwitchCase="'HEADING'">
+          <div [ngSwitch]="widget.size">
+            <h1  *ngSwitchCase="1">{{widget.text}}</h1>
+            <h2  *ngSwitchCase="2">{{widget.text}}</h2>
+            <h3  *ngSwitchCase="3">{{widget.text}}</h3>
+            <h4  *ngSwitchCase="4">{{widget.text}}</h4>
+            <h5  *ngSwitchCase="5">{{widget.text}}</h5>
+            <h6  *ngSwitchCase="6">{{widget.text}}</h6>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'YOUTUBE'" class="youtube-widget">
+
+          <iframe width="560" height="315" [src]="widget.url | safe" frameborder="0" allowfullscreen="" ></iframe>
+          <div class="float-right">
+            <a [routerLink]="['./']" class="pull-right">
+              <i class="fa fa-bars fontawsome_icon"></i>
+            </a>
+            <a [routerLink]="['./', widget._id]" class="pull-right">
+              <i class="fas fa-cog fontawsome_icon"></i>
+            </a>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'IMAGE'">
+        <img class="img-responsive img-rounded cl-widget-images" [src]=widget.url>
+
+        </div>
+
+        <div *ngSwitchCase="'HTML'">
+          <div [innerHTML]="widget.text"></div>
+        </div>
+
+        <div *ngSwitchCase="'TEXT'">
+          <div *ngIf="widget.formatted">
+            <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor>
           </div>
 
-      <div *ngSwitchCase="'YOUTUBE'" class="youtube-widget">
-        <div>
-          <iframe width="560" height="315" [src]="widget.url | safe" frameborder="0" allowfullscreen="" ></iframe>
-        </div>
-        <div class="float-right">
-          <a [routerLink]="['./']" class="pull-right">
-            <i class="fa fa-bars fontawsome_icon"></i>
-          </a>
-          <a [routerLink]="['./', widget._id]" class="pull-right">
-            <i class="fas fa-cog fontawsome_icon"></i>
-          </a>
-        </div>
-      </div>
+          <input *ngIf="!widget.formatted && (!widget.rows || widget.rows===1)"
+                 placeholder="{{widget.placeholder}}" class="form-control"/>
 
-      <div *ngSwitchCase="'IMAGE'">
-        <img class="img-responsive img-rounded cl-widget-images" [src]=widget.url>
-        <div class="float-right">
-          <a [routerLink]="['./']" class="pull-right">
-            <i class="fa fa-bars fontawsome_icon"></i>
-          </a>
-          <a [routerLink]="['./', widget._id]" class="pull-right">
-            <i class="fas fa-cog fontawsome_icon"></i>
-          </a>
+          <textarea *ngIf="!widget.formatted && (widget.rows > 1)"
+                    rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
+                    class="form-control">{{widget.text}}</textarea>
         </div>
-      </div>
 
-      <div *ngSwitchCase="'HTML'">
-        <div [innerHTML]="widget.text"></div>
-        <div class="float-right">
-          <a [routerLink]="['./']" class="pull-right">
-            <i class="fa fa-bars fontawsome_icon"></i>
-          </a>
-          <a [routerLink]="['./', widget._id]" class="pull-right">
-            <i class="fas fa-cog fontawsome_icon"></i>
-          </a>
-        </div>
-      </div>
+
       </div>
     </div>
   </div>

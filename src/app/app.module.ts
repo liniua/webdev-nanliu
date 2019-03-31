@@ -4,6 +4,7 @@ import { FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { Routing } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
+import { QuillEditorModule } from 'ngx-quill-editor';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/user/login/login.component';
@@ -25,9 +26,13 @@ import {UserService} from './services/user.service.client';
 import {WebsiteService} from './services/website.service.client';
 import {PageService} from './services/page.service.client';
 import {WidgetService} from './services/widget.service.client';
+import {FlickrService} from './services/flickr.service.client';
 import {SortableDirective} from './components/widget/widget-list/sortable.directive';
 import {OrderByPipe} from './components/widget/widget-list/order-by-pipe.pipe';
 import {SafePipe} from './safe.pipe';
+import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
+import { WidgetTextComponent } from './components/widget/widget-edit/widget-text/widget-text.component';
+import { FlickrImageSearchComponent } from './components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 
 
 @NgModule({
@@ -50,16 +55,20 @@ import {SafePipe} from './safe.pipe';
     WidgetYoutubeComponent,
     SafePipe,
     SortableDirective,
-    OrderByPipe
+    OrderByPipe,
+    WidgetHtmlComponent,
+    WidgetTextComponent,
+    FlickrImageSearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     Routing,
-    HttpClientModule
+    HttpClientModule,
+    QuillEditorModule
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

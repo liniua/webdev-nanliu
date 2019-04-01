@@ -50,7 +50,7 @@ export class WidgetYoutubeComponent implements OnInit {
     );
 
     if (this.wgid === undefined) {
-      this.widget = new Widget(undefined, 'YOUTUBE', this.pageID, '', '', '', '');
+      this.widget = new Widget(undefined, 'YOUTUBE', this.pageID, '', '', '', '', undefined);
     } else {
       this.widgetService.findWidgetById(this.wgid).subscribe(
         (widget: Widget) => {

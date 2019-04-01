@@ -46,7 +46,7 @@ export class WidgetTextComponent implements OnInit {
         this.pageID = params['pid'];
         this.wgid = params['wgid'];
         if (this.wgid === undefined) {
-          this.widget = new Widget(undefined, 'TEXT', this.pageID, '', '', '', '');
+          this.widget = new Widget(undefined, 'TEXT', this.pageID, '', '', '', '', undefined);
         } else {
           this.widgetService.findWidgetById(this.wgid).subscribe(
             (widget: Widget) => {

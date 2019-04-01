@@ -1,3 +1,5 @@
+
+
 var mongoose = require("mongoose");
 
 var WidgetSchema = require("./widget.schema.server");
@@ -61,7 +63,15 @@ function deleteWidget(widgetId) {
 function reorderWidget(pageId, start, end) {
   return PageModel.findPageById(pageId).then(
     function(page) {
+      console.log("wigs: ");
+      for (let w of page.widgets) {
+        console.log(w);
+      }
       page.widgets.splice(end, 0, page.widgets.splice(start, 1)[0]);
+      console.log("after wigs: ");
+      for (let w of page.widgets) {
+        console.log(w);
+      }
       return page.save();
     }
   )

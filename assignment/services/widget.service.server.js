@@ -137,8 +137,11 @@ module.exports=function(app) {
 
   function reorderWidgets(req,res) {
     var pageId = req.params.pageId;
-    var startIndex = parseInt(req.query["initial"]);
-    var endIndex = parseInt(req.query["final"]);
+    var startIndex = parseInt(req.query["start"]);
+    var endIndex = parseInt(req.query["end"]);
+    console.log("pageId: " + pageId);
+    console.log("start" + startIndex);
+    console.log("end: " + endIndex);
     WidgetModel.reorderWidget(pageId, startIndex, endIndex)
       .then(
         function (page) {
@@ -169,6 +172,8 @@ module.exports=function(app) {
     }
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
   }
+
+
 
 
   function uploadImage(req, res) {
@@ -216,8 +221,9 @@ module.exports=function(app) {
       ;
     }
 
-    var callbackUrl   = "/user/"+ userId+ "/website/" + websiteId + "/page/" + pageId+ "/widget";
-    res.redirect(callbackUrl);
+    res.send("Upload successfully!")
+    // var callbackUrl   = "/user/"+ userId+ "/website/" + websiteId + "/page/" + pageId+ "/widget";
+    // res.redirect(callbackUrl);
   }
 
 };

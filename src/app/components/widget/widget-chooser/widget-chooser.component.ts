@@ -10,7 +10,6 @@ import {Widget} from '../../../models/widget.model.client';
 })
 export class WidgetChooserComponent implements OnInit {
 
-  userId: String;
   websiteId: String;
   pageId: String;
   widgetId: String;
@@ -33,7 +32,6 @@ export class WidgetChooserComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
         (params: any) => {
-          this.userId = params['uid'];
           this.websiteId = params['wid'];
           this.pageId = params['pid'];
 
@@ -53,7 +51,8 @@ export class WidgetChooserComponent implements OnInit {
         (data: Widget) => {
           this.widgetId = data._id;
           console.log('data.widgetType in res' + data.widgetType);
-          this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', this.widgetId]);
+          // this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', this.widgetId]);
+          this.router.navigate(['/user/website', this.websiteId, 'page', this.pageId, 'widget', this.widgetId]);
         },
         (error: any) => console.log(error)
       );

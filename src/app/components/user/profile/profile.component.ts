@@ -3,6 +3,7 @@ import {UserService} from '../../../services/user.service.client';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {User} from '../../../models/user.model.client';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-profile',
@@ -23,27 +24,38 @@ export class ProfileComponent implements OnInit {
   errorFlag: boolean;
   errorMsg = 'Invalid username or password !';
 
-  constructor(private userService: UserService, private activatedRouter: ActivatedRoute, private route: Router) { }
+  constructor(private userService: UserService,
+              private activatedRouter: ActivatedRoute,
+              private route: Router,
+              private sharedService: SharedService) { }
 
   ngOnInit() {
-    this.activatedRouter.params.subscribe(params => {
-      return this.userService.findUserById(params['uid']).subscribe(
-        (user: User) => {
-          console.log('This is: ' + user.username);
-          this.userId = user._id;
-          this.user = user;
-          this.username = this.user.username;
-        }
-      );
-    });
+    this.userId = this.sharedService.user['_id'];
+    return this.userService.findUserById(this.userId).subscribe(
+      (user: User) => {
+        console.log('This is: ' + user.username);
+        console.log('This is: ' + user._id);
+        this.user = user;
+      }
+    );
   }
 
+  logout() {
+    this.userService.logout()
+      .subscribe(
+        (data: any) => this.route.navigate(['/login'])
+      );
+  }
+
+
   updateUser() {
-    this.activatedRouter.params.subscribe(params => {
-      this.userId = params['uid'];
-    });
-    console.log('new info: ' + this.profileForm.value);
+    // this.activatedRouter.params.subscribe(params => {
+    //   this.userId = params['uid'];
+    // });
+    //
+    // console.log('new info: ' + this.profileForm.value);
     this.username = this.profileForm.value.username;
+    this.password = this.profileForm.value.password;
     this.email = this.profileForm.value.email;
     this.firstName = this.profileForm.value.firstName;
     this.lastName = this.profileForm.value.lastName;
@@ -63,7 +75,7 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(user).subscribe(
         (new_user: any) => {
           this.user = new_user;
-          this.route.navigate(['./'], {relativeTo: this.activatedRouter});
+          this.route.navigate(['/login']);
         }
       );
     // console.log(user);
@@ -77,5 +89,10 @@ export class ProfileComponent implements OnInit {
     //     }
     //   );
     // });
+  }
+  deleteUser(delete_user) {
+    return this.userService.deleteUser(delete_user._id).subscribe(
+      () => this.route.navigate(['/login'])
+    );
   }
 }

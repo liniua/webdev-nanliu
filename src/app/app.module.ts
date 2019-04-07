@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
 import { Routing } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { QuillEditorModule } from 'ngx-quill-editor';
@@ -33,7 +32,8 @@ import {SafePipe} from './safe.pipe';
 import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html/widget-html.component';
 import { WidgetTextComponent } from './components/widget/widget-edit/widget-text/widget-text.component';
 import { FlickrImageSearchComponent } from './components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
-
+import { SharedService} from './services/shared.service';
+import {AuthGuard} from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -63,12 +63,11 @@ import { FlickrImageSearchComponent } from './components/widget/widget-edit/widg
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     Routing,
     HttpClientModule,
     QuillEditorModule
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService, SharedService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

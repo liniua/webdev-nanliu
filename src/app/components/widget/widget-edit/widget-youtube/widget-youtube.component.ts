@@ -15,13 +15,14 @@ export class WidgetYoutubeComponent implements OnInit {
   pageID: String;
   wgid: String;
   // width: String;
-  // name: String;
+  name: String;
   // text: String;
   // url: String;
   widget: Widget;
   constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private route: Router) { }
 
   update () {
+    this.widget.name = this.youtubeForm.value.headerName;
     this.widget.url = this.youtubeForm.value.url;
     this.widget.text = this.youtubeForm.value.text;
     this.widget.width = this.youtubeForm.value.width;

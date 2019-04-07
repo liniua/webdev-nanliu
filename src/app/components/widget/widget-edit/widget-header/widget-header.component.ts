@@ -15,14 +15,13 @@ export class WidgetHeaderComponent implements OnInit {
   websiteId: String;
   wgid: String;
   pageID: String;
-  userId: String;
   widget: Widget;
   constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private route: Router) { }
 
   delete() {
     this.widgetService.deleteWidget(this.wgid)
       .subscribe(
-        (data: any) => this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageID, 'widget']),
+        (data: any) => this.route.navigate(['/user/website', this.websiteId, 'page', this.pageID, 'widget']),
         (error: any) => console.log(error)
       );
   }
@@ -34,18 +33,16 @@ export class WidgetHeaderComponent implements OnInit {
 
     this.widgetService.updateWidget(this.wgid, this.widget)
       .subscribe(
-        (data: any) => this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageID, 'widget']),
+        (data: any) => this.route.navigate(['/user/website', this.websiteId, 'page', this.pageID, 'widget']),
         (error: any) => console.log(error)
       );
   }
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       (params: any) => {
-        this.userId = params['uid'];
         this.websiteId = params['wid'];
         this.pageID = params['pid'];
         this.wgid = params['wgid'];
-        console.log(this.userId);
         console.log(this.websiteId);
         console.log(this.pageID);
         console.log(this.wgid);

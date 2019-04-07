@@ -29,7 +29,7 @@
              class="form-control"
              id="page-name"
              placeholder="Page Name">
-      <div [hidden]="pageName.valid || pageName.untouched"
+      <div [hidden]="['pageName'].valid || ['pageName'].untouched"
            class="alert alert-danger">
         Page Name is required
       </div>

@@ -27,7 +27,7 @@
     <input type="text" class="form-control" id="image-name" placeholder={{widget.name}}
     ngModel required
     name="headerName" [(ngModel)]="widget.name"/>
-      <div [hidden]="widget.name.valid || widget.name.untouched"
+      <div [hidden]="['widget.name'].valid || ['widget.name'].untouched"
            class="alert alert-danger">
         Name is required
       </div>

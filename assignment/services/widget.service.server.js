@@ -213,7 +213,7 @@ module.exports=function(app) {
       WidgetModel
         .updateWidget(widgetId, widget)
         .then(function (status) {
-            res.send(200);
+            res.sendStatus(200);
           },
           function (err) {
             res.sendStatus(404).send(err);
@@ -221,9 +221,9 @@ module.exports=function(app) {
       ;
     }
 
-    res.send("Upload successfully!")
-    // var callbackUrl   = "/user/"+ userId+ "/website/" + websiteId + "/page/" + pageId+ "/widget";
-    // res.redirect(callbackUrl);
+    //res.send("Upload successfully!");
+    const callbackUrl   = "/#/user/website/" + websiteId + "/page/" + pageId+ "/widget";
+    res.redirect(callbackUrl);
   }
 
 };

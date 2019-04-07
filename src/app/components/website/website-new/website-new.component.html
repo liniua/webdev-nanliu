@@ -37,7 +37,7 @@
                  id="website-name"
                  placeholder="Name">
         </div>
-        <div [hidden]="webname.valid || webname.untouched"
+        <div [hidden]="['webname'].valid || ['webname'].untouched"
              class="alert alert-danger">
           Name is required
         </div>

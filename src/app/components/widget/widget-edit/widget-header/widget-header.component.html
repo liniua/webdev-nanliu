@@ -28,7 +28,7 @@
       <input type="text" class="form-control" id="heading-text" placeholder={{widget.text}}
              ngModel required
              name="text" [(ngModel)]="widget.text"/>
-      <div [hidden]="widget.text.valid || widget.text.untouched"
+      <div [hidden]="['widget.text'].valid || ['widget.text'].untouched"
            class="alert alert-danger">
         Text is required
       </div>
@@ -38,13 +38,10 @@
       <input type="text" class="form-control" id="heading-size" placeholder={{widget.size}}
              ngModel required
              name="size" [(ngModel)]="widget.size"/>
-      <div [hidden]="widget.size.valid || widget.size.untouched"
+      <div [hidden]="['widget.size'].valid || ['widget.size'].untouched"
            class="alert alert-danger">
         Size is required
       </div>
-    </div>
-    <div *ngIf="sizeValid" class="alert alert-danger">
-      Size can only between 1 to 6
     </div>
     <button class="btn btn-danger btn-block" type="button" (click)="delete()" [routerLink]="['../']">Delete</button>
   </form>

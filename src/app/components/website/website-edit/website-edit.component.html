@@ -35,7 +35,7 @@
                  class="form-control"
                  id="website-name"
                  placeholder={{website.name}}>
-          <div [hidden]="website.name.valid || website.name.untouched"
+          <div [hidden]= "['website.name'].valid || ['website.name'].untouched"
                class="alert alert-danger">
             Name is required
           </div>

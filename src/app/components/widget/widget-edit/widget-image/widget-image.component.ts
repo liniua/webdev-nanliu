@@ -16,7 +16,6 @@ export class WidgetImageComponent implements OnInit {
   pageID: String;
   wgid: String;
   websiteId: String;
-  userId: String;
   width: String;
   name: String;
   text: String;
@@ -31,14 +30,14 @@ export class WidgetImageComponent implements OnInit {
   update() {
     this.widgetService.updateWidget(this.wgid, this.widget)
       .subscribe(
-        (data: any) => this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageID, 'widget']),
+        (data: any) => this.route.navigate(['/user/website', this.websiteId, 'page', this.pageID, 'widget']),
         (error: any) => console.log(error)
       );
   }
 
   delete() {
     this.widgetService.deleteWidget(this.wgid) .subscribe(
-      (data: any) => this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageID, 'widget']),
+      (data: any) => this.route.navigate(['/user/website', this.websiteId, 'page', this.pageID, 'widget']),
       (error: any) => console.log(error)
     );
   }
@@ -50,7 +49,6 @@ export class WidgetImageComponent implements OnInit {
     this.baseUrl = environment.baseUrl;
     this.activatedRoute.params.subscribe(
       (params: any) => {
-        this.userId = params['uid'];
         this.websiteId = params['wid'];
         this.pageID = params['pid'];
         this.wgid = params['wgid'];

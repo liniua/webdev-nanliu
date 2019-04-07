@@ -11,8 +11,9 @@
     </div>
 
     <div class="navbar-text float-right">
-      <a [routerLink]="['../']" class="cl-icon-padding cl-text-black" (click) = "f.ngSubmit.emit()">
-        <i class="fas fa-check fontawsome_icon"></i>
+      <a class="cl-icon-padding cl-text-black">
+        <button class="fas fa-check fontawsome_icon" (click)="f.ngSubmit.emit()" [disabled]="!f.valid">
+        </button>
       </a>
     </div>
 
@@ -62,7 +63,7 @@
 
 <nav class="navbar bg-light fixed-bottom w-100 justify-content-end">
   <div class="container-fuild">
-    <a [routerLink]="['../../../../../../']" class="navbar-link navbar-text cl-text-blue cl-icon-padding">
+    <a [routerLink]="['/profile']" class="navbar-link navbar-text cl-text-blue cl-icon-padding">
       <i class="fas fa-user fontawsome_icon"></i>
     </a>
   </div>

@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-sm cl-blue-navbar navbar-dark fixed-top">
   <div class="container-fluid">
     <div class="navbar float-left">
-      <a [routerLink]="['/user', userId]" class="navbar-link cl-text-white">
+      <a [routerLink]="['/profile']" class="navbar-link cl-text-white">
         <i class="fas fa-chevron-left fontawsome_icon"></i>
       </a>
-      <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+      <a class="navbar-brand cl-text-white cl-text-bold" href="./">
         Websites
       </a>
     </div>
 
-    <a [routerLink]="['/user', userId, 'website', 'new']" class="navbar-link navbar-text float-right cl-text-white cl-icon-padding">
+    <a [routerLink]="['/user/website', 'new']" class="navbar-link navbar-text float-right cl-text-white cl-icon-padding">
       <i class="fas fa-plus fontawsome_icon"></i>
     </a>
   </div>
@@ -18,17 +18,17 @@
 <div class="container cl-container-padding">
   <ul class="list-group cl-list-group-borderless">
     <li *ngFor="let website of websites" class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user', userId, 'website', website._id]">
+      <a [routerLink]="['./', website._id]">
         <i class="fas fa-cog fontawsome_icon float-right" ></i>
       </a>
-      <a [routerLink]="['/user', userId, 'website', website._id, 'page']">{{website.name}}</a>
+      <a [routerLink]="['./', website._id, 'page']">{{website.name}}</a>
     </li>
   </ul>
 </div>
 
 <nav class="navbar navbar-expand-sm cl-blue-navbar navbar-dark fixed-bottom w-100 justify-content-end">
   <div class="container-fuild">
-    <a [routerLink]="['/user', userId]" class="navbar-link navbar-text cl-text-white cl-icon-padding">
+    <a [routerLink]="['/profile']" class="navbar-link navbar-text cl-text-white cl-icon-padding">
       <i class="fas fa-user fontawsome_icon"></i>
     </a>
   </div>

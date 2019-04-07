@@ -7,6 +7,20 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
 
+const passport = require('passport');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+app.use(cookieParser());
+// app.use(session({ secret: process.env.SESSION_SECRET }));
+app.use(session({
+  secret: 'mysecret',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session()); //configure passport's session support
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
